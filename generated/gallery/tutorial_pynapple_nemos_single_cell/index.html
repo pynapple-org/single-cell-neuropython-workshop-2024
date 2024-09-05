@@ -1,0 +1,1116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../tutorial_pynapple_nemos_single_cell_full/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+    
+    
+      
+        <title>Tutorial pynapple & NeMoS - Single-cell neuropython workshop 2024</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../sg_gallery-rendered-html.css">
+    
+      <link rel="stylesheet" href="../../../sg_gallery-dataframe.css">
+    
+      <link rel="stylesheet" href="../../../sg_gallery-binder.css">
+    
+      <link rel="stylesheet" href="../../../sg_gallery.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-pynapple-nemos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-header__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Single-cell neuropython workshop 2024
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial pynapple & NeMoS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pynapple-org/Single-cell-neuropython-workshop-2024" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-nav__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Single-cell neuropython workshop 2024
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pynapple-org/Single-cell-neuropython-workshop-2024" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Tutorial pynapple & NeMoS
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial pynapple & NeMoS
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Streaming
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pynapple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pynapple
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pynapple">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-structures-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data structures and preparation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic analyses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      NeMoS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NeMoS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitting-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fitting the model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending the model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finishing-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finishing up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data citation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorial_pynapple_nemos_single_cell_full/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Complete tutorial pynapple & NeMoS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Streaming
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pynapple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pynapple
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pynapple">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-structures-and-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data structures and preparation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-analyses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic analyses
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nemos" class="md-nav__link">
+    <span class="md-ellipsis">
+      NeMoS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NeMoS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitting-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fitting the model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending the model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finishing-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finishing up
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Exercises
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-citation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data citation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<!--
+ DO NOT EDIT.
+ THIS FILE WAS AUTOMATICALLY GENERATED BY mkdocs-gallery.
+ TO MAKE CHANGES, EDIT THE SOURCE PYTHON FILE:
+ "docs/examples/tutorial_pynapple_nemos_single_cell.py"
+ LINE NUMBERS ARE GIVEN BELOW.
+-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a href="#download_links">here</a>
+to download the full example code</p>
+</div>
+<h1 id="tutorial-pynapple-nemos">Tutorial pynapple &amp; NeMoS</h1>
+<!-- GENERATED FROM PYTHON SOURCE LINES 5-16 -->
+
+<p>Data for this notebook is a patch clamp experiment with a mouse V1 neuron, from the <a href="https://celltypes.brain-map.org/experiment/electrophysiology/478498617">Allen Brain Atlas</a></p>
+<p><img alt="Allen Brain Atlas view of the data we will analyze." src="../../../assets/allen_data.png" /></p>
+<h2 id="learning-objectives">Learning objectives</h2>
+<ul>
+<li>Learn how to explore spiking data and do basic analyses using pynapple</li>
+<li>Learn how to structure data for NeMoS</li>
+<li>Learn how to fit a basic Generalized Linear Model using NeMoS</li>
+<li>Learn how to retrieve the parameters and predictions from a fit GLM for
+  intrepetation.</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 19-24 -->
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This tutorial uses matplotlib for displaying the figure</p>
+<p>You can install all with <code>pip install matplotlib requests tqdm</code></p>
+</div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 26-27 -->
+
+<p>!pip install matplotlib requests tqdm</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 29-30 -->
+
+<p>In case you did not install beforehand pynapple and nemos, here is the command to install it.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 30-33 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install pynapple nemos</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 34-35 -->
+
+<p>Import everything</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 35-47 -->
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">nemos</span> <span class="k">as</span> <span class="nn">nmo</span>
+<span class="kn">import</span> <span class="nn">nemos.glm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="kn">import</span> <span class="nn">workshop_utils.plotting</span> <span class="k">as</span> <span class="nn">plotting</span>
+<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">tqdm</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 48-49 -->
+
+<p>configure plots some</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 49-53 -->
+
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;workshop_utils/nemos.mplstyle&quot;</span><span class="p">)</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 54-58 -->
+
+<h2 id="data-streaming">Data Streaming</h2>
+<ul>
+<li>Stream the data. Format is <a href="https://nwb-overview.readthedocs.io/en/latest/">Neurodata Without Borders (NWB) standard</a></li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 58-70 -->
+
+<div class="highlight"><pre><span></span><code><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;allen_478498617.nwb&quot;</span>
+<span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+  <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;https://osf.io/vf2nj/download&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">block_size</span> <span class="o">=</span> <span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">block_size</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MB&#39;</span><span class="p">,</span> <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+      <span class="n">total</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-length&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">//</span><span class="n">block_size</span><span class="p">)):</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 71-76 -->
+
+<h2 id="pynapple">Pynapple</h2>
+<h3 id="data-structures-and-preparation">Data structures and preparation</h3>
+<ul>
+<li>Open the NWB file with <a href="https://pynapple-org.github.io/pynapple/">pynapple</a></li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 84-93 -->
+
+<p><img alt="Annotated view of the data we will analyze." src="../../../assets/allen_data_annotated.gif" /></p>
+<ul>
+<li><code>stimulus</code>: Tsd containing injected current, in Amperes, sampled at 20k Hz.</li>
+<li><code>response</code>: Tsd containing the neuron's intracellular voltage, sampled at 20k Hz.</li>
+<li><code>units</code>: Tsgroup, dictionary of neurons, holding each neuron's spike timestamps.</li>
+<li><code>epochs</code>: IntervalSet, dictionary with start and end times of different intervals,
+  defining the experimental structure, specifying when each stimulation protocol began
+  and ended.</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 101-103 -->
+
+<ul>
+<li><code>Noise 1</code>: epochs of random noise</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 111-113 -->
+
+<ul>
+<li>Let's focus on the first epoch.</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 121-123 -->
+
+<ul>
+<li><code>current</code> : Tsd (TimeSeriesData) : time index + data</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 126-133 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># convert current from Ampere to pico-amperes, to match the Allen Institute figures and</span>
+<span class="c1"># move the values to a more reasonable range.</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 134-136 -->
+
+<ul>
+<li><code>restrict</code> : restricts a time series object to a set of time intervals delimited by an IntervalSet object</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 144-147 -->
+
+<ul>
+<li><code>TsGroup</code> : a custom dictionary holding multiple <code>Ts</code> (timeseries) objects with
+  potentially different time indices.</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 156-159 -->
+
+<p>We can index into the <code>TsGroup</code> to see the timestamps for this neuron's
+spikes:</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 167-169 -->
+
+<p>Let's restrict to the same epoch <code>noise_interval</code>:</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 179-181 -->
+
+<p>Let's visualize the data from this trial:</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 184-193 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># fig, ax = plt.subplots(1, 1, figsize=(8, 2))</span>
+<span class="c1"># ax.plot(current, &quot;grey&quot;)</span>
+<span class="c1"># ax.plot(spikes.to_tsd([-5]), &quot;|&quot;, color=&quot;k&quot;, ms = 10)</span>
+<span class="c1"># ax.set_ylabel(&quot;Current (pA)&quot;)</span>
+<span class="c1"># ax.set_xlabel(&quot;Time (s)&quot;)</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 194-201 -->
+
+<h3 id="basic-analyses">Basic analyses</h3>
+<p>The Generalized Linear Model gives a predicted firing rate. First we can use
+pynapple to visualize this firing rate for a single trial.</p>
+<ul>
+<li><code>count</code> : count the number of events within <code>bin_size</code></li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 208-212 -->
+
+<p>Let's convert the spike counts to firing rate :</p>
+<ul>
+<li><code>smooth</code> : convolve with a Gaussian kernel</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 215-218 -->
+
+<p>the inputs to this function are the standard deviation of the gaussian in seconds and
+the full width of the window, in standard deviations. So std=.05 and size_factor=20
+gives a total filter size of 0.05 sec * 20 = 1 sec.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 220-221 -->
+
+<p>convert from spikes per bin to spikes per second (Hz)</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 226-230 -->
+
+<p>we're hiding the details of the plotting function for the purposes of this
+tutorial, but you can find it in the associated github repo if you're
+interested:
+https://github.com/flatironinstitute/ccn-workshop-fens-2024/blob/main/src/workshop_utils/plotting.py</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 230-235 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># plotting.current_injection_plot(current, spikes, firing_rate)</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 236-240 -->
+
+<p>What is the relationship between the current and the spiking activity?
+<a href="https://pynapple-org.github.io/pynapple/reference/process/tuning_curves/#pynapple.process.tuning_curves.compute_1d_tuning_curves"><code>compute_1d_tuning_curves</code></a> : compute the firing rate as a function of a 1-dimensional feature.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 247-249 -->
+
+<p>Let's plot the tuning curve of the neuron.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 250-257 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># plotting.tuning_curve_plot(tuning_curve)</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 258-265 -->
+
+<h2 id="nemos">NeMoS</h2>
+<h3 id="preparing-data">Preparing data</h3>
+<p>Get data from pynapple to NeMoS-ready format:</p>
+<ul>
+<li>predictors and spikes must have same number of time points</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 265-269 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 270-272 -->
+
+<ul>
+<li>predictors must be 2d, spikes 1d</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 273-277 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 278-282 -->
+
+<h3 id="fitting-the-model">Fitting the model</h3>
+<ul>
+<li>GLM objects need regularizers and observation models</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 282-286 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 287-289 -->
+
+<ul>
+<li>call fit and retrieve parameters</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 290-294 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 295-297 -->
+
+<ul>
+<li>generate and examine model predictions.</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 298-302 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 303-305 -->
+
+<ul>
+<li>what do we see?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 306-310 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 311-313 -->
+
+<ul>
+<li>examine tuning curve &mdash; what do we see?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 314-318 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 319-323 -->
+
+<h3 id="extending-the-model">Extending the model</h3>
+<ul>
+<li>choose a length of time over which the neuron integrates the input current</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 323-327 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 328-330 -->
+
+<ul>
+<li>define a basis object</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 331-335 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 336-339 -->
+
+<ul>
+<li>create the design matrix</li>
+<li>examine the features it contains</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 340-344 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 345-348 -->
+
+<ul>
+<li>create and fit the GLM</li>
+<li>examine the parameters</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 349-353 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 354-357 -->
+
+<ul>
+<li>compare the predicted firing rate to the data and the old model</li>
+<li>what do we see?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 358-362 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 363-366 -->
+
+<ul>
+<li>examine the predicted average firing rate and tuning curve</li>
+<li>what do we see?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 367-371 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 372-374 -->
+
+<ul>
+<li>use log-likelihood to compare models</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 375-379 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 380-384 -->
+
+<h3 id="finishing-up">Finishing up</h3>
+<ul>
+<li>what if you want to compare models across datasets?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 384-388 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 389-391 -->
+
+<ul>
+<li>what about spiking?</li>
+</ul>
+<!-- GENERATED FROM PYTHON SOURCE LINES 392-396 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 397-426 -->
+
+<h2 id="further-exercises">Further Exercises</h2>
+<ul>
+<li>what else can we do?</li>
+</ul>
+<h2 id="data-citation">Data citation</h2>
+<p>The data used in this tutorial is from the Allen Brain Map, with the
+<a href="https://knowledge.brain-map.org/data/1HEYEW7GMUKWIQW37BO/summary">following
+citation</a>:</p>
+<p><strong>Contributors</strong>: Agata Budzillo, Bosiljka Tasic, Brian R. Lee, Fahimeh
+Baftizadeh, Gabe Murphy, Hongkui Zeng, Jim Berg, Nathan Gouwens, Rachel
+Dalley, Staci A. Sorensen, Tim Jarsky, Uygar Sümbül Zizhen Yao</p>
+<p><strong>Dataset</strong>: Allen Institute for Brain Science (2020). Allen Cell Types Database
+-- Mouse Patch-seq [dataset]. Available from
+brain-map.org/explore/classes/multimodal-characterization.</p>
+<p><strong>Primary publication</strong>: Gouwens, N.W., Sorensen, S.A., et al. (2020). Integrated
+morphoelectric and transcriptomic classification of cortical GABAergic cells.
+Cell, 183(4), 935-953.E19. https://doi.org/10.1016/j.cell.2020.09.057</p>
+<p><strong>Patch-seq protocol</strong>: Lee, B. R., Budzillo, A., et al. (2021). Scaled, high
+fidelity electrophysiological, morphological, and transcriptomic cell
+characterization. eLife, 2021;10:e65482. https://doi.org/10.7554/eLife.65482</p>
+<p><strong>Mouse VISp L2/3 glutamatergic neurons</strong>: Berg, J., Sorensen, S. A., Miller, J.,
+Ting, J., et al. (2021) Human neocortical expansion involves glutamatergic
+neuron diversification. Nature, 598(7879):151-158. doi:
+10.1038/s41586-021-03813-8</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.046 seconds)</p>
+<div id="download_links"></div>
+
+<p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: tutorial_pynapple_nemos_single_cell.py</a></p>
+<p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell.ipynb"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Jupyter notebook: tutorial_pynapple_nemos_single_cell.ipynb</a></p>
+<p><a class="mkd-glr-signature" href="https://mkdocs-gallery.github.io">Gallery generated by mkdocs-gallery</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      
+        <script src="../../../javascripts/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
