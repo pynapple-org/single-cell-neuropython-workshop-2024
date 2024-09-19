@@ -298,6 +298,8 @@ if path not in os.listdir("."):
 # 
 
 # enter code here
+# plotting.current_injection_plot(current, spikes, firing_rate,
+#                                                smooth_predicted_fr)
 
 
 # %%
@@ -314,6 +316,9 @@ if path not in os.listdir("."):
 # 
 
 # enter code here
+# fig = plotting.tuning_curve_plot(tuning_curve)
+# fig.axes[0].plot(tuning_curve_model, color="tomato", label="glm")
+# fig.axes[0].legend()
 
 
 # %%
@@ -340,6 +345,11 @@ if path not in os.listdir("."):
 # 
 
 # enter code here
+# in this plot, we're normalizing the amplitudes to make the comparison easier --
+# the amplitude of these features will be fit by the model, so their un-scaled
+# amplitudes is not informative
+# plotting.plot_current_history_features(binned_current, current_history, basis,
+#                                                       current_history_duration_sec)
 
 
 # %%
