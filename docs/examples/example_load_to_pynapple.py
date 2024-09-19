@@ -9,7 +9,7 @@ In this example, we show how to load into pynapple an NWB directly downloaded fr
     with each sweep starting at t = 0 seconds.
 
     [Here](https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py),
-    we provide a module for loading intracellular recordings into `pynapple`.
+    we provide the `load_allen.py` module for loading intracellular recordings into `pynapple`.
      It works by concatenating all sweeps together and adding a fixed inter-trial interval between sweeps to
      create a continuous time axis.
 
@@ -21,6 +21,8 @@ https://celltypes.brain-map.org/experiment/electrophysiology/478498617
 To load it into pynapple, you can run the following code,
 """
 
+# The "load_allen.py" module is in
+# https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py
 from load_allen import load_to_pynapple
 
 # replace this with the path to the nwb data
