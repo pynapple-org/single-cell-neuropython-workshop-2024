@@ -9,14 +9,14 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../example_load_to_pynapple/">
       
       
         <link rel="next" href="../tutorial_pynapple_nemos_single_cell_full/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
@@ -92,9 +92,7 @@
     
       
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-header__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
@@ -153,7 +151,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -187,6 +185,54 @@
       
         
           
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Tutorial
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -200,8 +246,10 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-nav__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
@@ -265,10 +313,18 @@
       
         
       
+        
+      
     
     
+      
+        
+        
+      
+      
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
@@ -288,7 +344,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -301,6 +357,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_load_to_pynapple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Allen Brain Map NWBs into pynapple
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -722,32 +799,35 @@ to download the full example code</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 34-35 -->
 
 <p>Import everything</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 35-47 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 35-49 -->
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">jax</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">jax</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">nemos</span> <span class="k">as</span> <span class="nn">nmo</span>
 <span class="kn">import</span> <span class="nn">nemos.glm</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="kn">import</span> <span class="nn">workshop_utils.plotting</span> <span class="k">as</span> <span class="nn">plotting</span>
-<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">tqdm</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 48-49 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 50-51 -->
 
 <p>configure plots some</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 49-53 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 51-55 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;workshop_utils/nemos.mplstyle&quot;</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 54-58 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 56-60 -->
 
 <h2 id="data-streaming">Data Streaming</h2>
 <ul>
 <li>Stream the data. Format is <a href="https://nwb-overview.readthedocs.io/en/latest/">Neurodata Without Borders (NWB) standard</a></li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 58-70 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 60-72 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;allen_478498617.nwb&quot;</span>
 <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
@@ -758,14 +838,14 @@ to download the full example code</p>
       <span class="n">total</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-length&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">//</span><span class="n">block_size</span><span class="p">)):</span>
       <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 71-76 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 73-78 -->
 
 <h2 id="pynapple">Pynapple</h2>
 <h3 id="data-structures-and-preparation">Data structures and preparation</h3>
 <ul>
 <li>Open the NWB file with <a href="https://pynapple-org.github.io/pynapple/">pynapple</a></li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 84-93 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 86-95 -->
 
 <p><img alt="Annotated view of the data we will analyze." src="../../../assets/allen_data_annotated.gif" /></p>
 <ul>
@@ -776,48 +856,48 @@ to download the full example code</p>
   defining the experimental structure, specifying when each stimulation protocol began
   and ended.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 101-103 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 103-105 -->
 
 <ul>
 <li><code>Noise 1</code>: epochs of random noise</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 111-113 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 113-115 -->
 
 <ul>
 <li>Let's focus on the first epoch.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 121-123 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 123-125 -->
 
 <ul>
 <li><code>current</code> : Tsd (TimeSeriesData) : time index + data</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 126-133 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 128-135 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># convert current from Ampere to pico-amperes, to match the Allen Institute figures and</span>
 <span class="c1"># move the values to a more reasonable range.</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 134-136 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 136-138 -->
 
 <ul>
 <li><code>restrict</code> : restricts a time series object to a set of time intervals delimited by an IntervalSet object</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 144-147 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 146-149 -->
 
 <ul>
 <li><code>TsGroup</code> : a custom dictionary holding multiple <code>Ts</code> (timeseries) objects with
   potentially different time indices.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 156-159 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 158-161 -->
 
 <p>We can index into the <code>TsGroup</code> to see the timestamps for this neuron's
 spikes:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 167-169 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 169-171 -->
 
 <p>Let's restrict to the same epoch <code>noise_interval</code>:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 179-181 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 181-183 -->
 
 <p>Let's visualize the data from this trial:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 184-193 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 186-195 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># fig, ax = plt.subplots(1, 1, figsize=(8, 2))</span>
 <span class="c1"># ax.plot(current, &quot;grey&quot;)</span>
@@ -825,7 +905,7 @@ spikes:</p>
 <span class="c1"># ax.set_ylabel(&quot;Current (pA)&quot;)</span>
 <span class="c1"># ax.set_xlabel(&quot;Time (s)&quot;)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 194-201 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 196-203 -->
 
 <h3 id="basic-analyses">Basic analyses</h3>
 <p>The Generalized Linear Model gives a predicted firing rate. First we can use
@@ -833,42 +913,42 @@ pynapple to visualize this firing rate for a single trial.</p>
 <ul>
 <li><code>count</code> : count the number of events within <code>bin_size</code></li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 208-212 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 210-214 -->
 
 <p>Let's convert the spike counts to firing rate :</p>
 <ul>
 <li><code>smooth</code> : convolve with a Gaussian kernel</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 215-218 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 217-220 -->
 
 <p>the inputs to this function are the standard deviation of the gaussian in seconds and
 the full width of the window, in standard deviations. So std=.05 and size_factor=20
 gives a total filter size of 0.05 sec * 20 = 1 sec.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 220-221 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 222-223 -->
 
 <p>convert from spikes per bin to spikes per second (Hz)</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 226-230 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 228-232 -->
 
 <p>we're hiding the details of the plotting function for the purposes of this
 tutorial, but you can find it in the associated github repo if you're
 interested:
 https://github.com/flatironinstitute/ccn-workshop-fens-2024/blob/main/src/workshop_utils/plotting.py</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 230-235 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 232-237 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># plotting.current_injection_plot(current, spikes, firing_rate)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 236-240 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 238-242 -->
 
 <p>What is the relationship between the current and the spiking activity?
 <a href="https://pynapple-org.github.io/pynapple/reference/process/tuning_curves/#pynapple.process.tuning_curves.compute_1d_tuning_curves"><code>compute_1d_tuning_curves</code></a> : compute the firing rate as a function of a 1-dimensional feature.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 247-249 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 249-251 -->
 
 <p>Let's plot the tuning curve of the neuron.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 250-257 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 252-259 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># plotting.tuning_curve_plot(tuning_curve)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 258-265 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 260-267 -->
 
 <h2 id="nemos">NeMoS</h2>
 <h3 id="preparing-data">Preparing data</h3>
@@ -876,153 +956,153 @@ https://github.com/flatironinstitute/ccn-workshop-fens-2024/blob/main/src/worksh
 <ul>
 <li>predictors and spikes must have same number of time points</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 265-269 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 267-271 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 270-272 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 272-274 -->
 
 <ul>
 <li>predictors must be 2d, spikes 1d</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 273-277 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 275-279 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 278-282 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 280-284 -->
 
 <h3 id="fitting-the-model">Fitting the model</h3>
 <ul>
 <li>GLM objects need regularizers and observation models</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 282-286 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 284-288 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 287-289 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 289-291 -->
 
 <ul>
 <li>call fit and retrieve parameters</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 290-294 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 292-296 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 295-297 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 297-299 -->
 
 <ul>
 <li>generate and examine model predictions.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 298-302 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 300-304 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 303-305 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 305-307 -->
 
 <ul>
 <li>what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 306-310 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 308-312 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 311-313 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 313-315 -->
 
 <ul>
 <li>examine tuning curve &mdash; what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 314-318 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 316-320 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 319-323 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 321-325 -->
 
 <h3 id="extending-the-model">Extending the model</h3>
 <ul>
 <li>choose a length of time over which the neuron integrates the input current</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 323-327 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 325-329 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 328-330 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 330-332 -->
 
 <ul>
 <li>define a basis object</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 331-335 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 333-337 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 336-339 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 338-341 -->
 
 <ul>
 <li>create the design matrix</li>
 <li>examine the features it contains</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 340-344 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 342-346 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 345-348 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 347-350 -->
 
 <ul>
 <li>create and fit the GLM</li>
 <li>examine the parameters</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 349-353 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 351-355 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 354-357 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 356-359 -->
 
 <ul>
 <li>compare the predicted firing rate to the data and the old model</li>
 <li>what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 358-362 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 360-364 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 363-366 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 365-368 -->
 
 <ul>
 <li>examine the predicted average firing rate and tuning curve</li>
 <li>what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 367-371 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 369-373 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 372-374 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 374-376 -->
 
 <ul>
 <li>use log-likelihood to compare models</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 375-379 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 377-381 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 380-384 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 382-386 -->
 
 <h3 id="finishing-up">Finishing up</h3>
 <ul>
 <li>what if you want to compare models across datasets?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 384-388 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 386-390 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 389-391 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 391-393 -->
 
 <ul>
 <li>what about spiking?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 392-396 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 394-398 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 397-426 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 399-428 -->
 
 <h2 id="further-exercises">Further Exercises</h2>
 <ul>
@@ -1048,7 +1128,7 @@ characterization. eLife, 2021;10:e65482. https://doi.org/10.7554/eLife.65482</p>
 Ting, J., et al. (2021) Human neocortical expansion involves glutamatergic
 neuron diversification. Nature, 598(7879):151-158. doi:
 10.1038/s41586-021-03813-8</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  2.046 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  10.401 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: tutorial_pynapple_nemos_single_cell.py</a></p>
@@ -1100,10 +1180,10 @@ neuron diversification. Nature, 598(7879):151-158. doi:
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "content.code.copy", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../../javascripts/katex.js"></script>
       

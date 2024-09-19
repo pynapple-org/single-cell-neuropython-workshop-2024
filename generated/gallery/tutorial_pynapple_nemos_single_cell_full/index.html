@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
@@ -90,9 +90,7 @@
     
       
 
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-header__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
@@ -151,7 +149,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -185,6 +183,54 @@
       
         
           
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Tutorial
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -198,8 +244,10 @@
                     
 
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-nav__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
@@ -263,10 +311,18 @@
       
         
       
+        
+      
     
     
+      
+        
+        
+      
+      
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
@@ -286,7 +342,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -299,6 +355,27 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_load_to_pynapple/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Allen Brain Map NWBs into pynapple
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -807,29 +884,31 @@ Data for this notebook is a patch clamp experiment with a mouse V1 neuron, from 
 <!-- GENERATED FROM PYTHON SOURCE LINES 64-65 -->
 
 <p>In case you did not install beforehand pynapple and nemos, here is the command to install it.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 65-68 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 65-71 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># !pip install pynapple nemos</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 69-70 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 72-73 -->
 
 <p>Import everything</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 70-83 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 73-85 -->
 
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">jax</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">nemos</span> <span class="k">as</span> <span class="nn">nmo</span>
-<span class="kn">import</span> <span class="nn">nemos.glm</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="kn">import</span> <span class="nn">workshop_utils.plotting</span> <span class="k">as</span> <span class="nn">plotting</span>
-<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">tqdm</span>
 
 <span class="c1"># configure plots some</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;workshop_utils/nemos.mplstyle&quot;</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 84-109 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 86-111 -->
 
 <h2 id="data-streaming">Data Streaming</h2>
 <p>While you can download the data directly from the Allen Brain Atlas and
@@ -855,7 +934,7 @@ data.</p>
 - Stream the data. Format is [Neurodata Without Borders (NWB) standard](https://nwb-overview.readthedocs.io/en/latest/)
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 109-119 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 111-121 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;allen_478498617.nwb&quot;</span>
 <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
@@ -866,7 +945,7 @@ data.</p>
       <span class="n">total</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-length&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">//</span><span class="n">block_size</span><span class="p">)):</span>
       <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 120-130 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 122-132 -->
 
 <h2 id="pynapple">Pynapple</h2>
 <h3 id="data-structures-and-preparation">Data structures and preparation</h3>
@@ -876,17 +955,17 @@ its contents.</p>
 - Open the NWB file with [pynapple](https://pynapple-org.github.io/pynapple/)
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 130-135 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 132-137 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/gviejo/miniconda3/envs/pynaviz/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;hdmf-common&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.7.0<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.8.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/gviejo/miniconda3/envs/fens2024/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;hdmf-common&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.7.0<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.8.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
 <span class="w">  </span><span class="k">return</span><span class="w"> </span>func<span class="o">(</span>args<span class="o">[</span><span class="m">0</span><span class="o">]</span>,<span class="w"> </span>**pargs<span class="o">)</span>
-/Users/gviejo/miniconda3/envs/pynaviz/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;core&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.6.0-alpha<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.7.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
+/Users/gviejo/miniconda3/envs/fens2024/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;core&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.6.0-alpha<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.7.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
 <span class="w">  </span><span class="k">return</span><span class="w"> </span>func<span class="o">(</span>args<span class="o">[</span><span class="m">0</span><span class="o">]</span>,<span class="w"> </span>**pargs<span class="o">)</span>
-/Users/gviejo/miniconda3/envs/pynaviz/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;hdmf-experimental&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">0</span>.4.0<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">0</span>.5.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
+/Users/gviejo/miniconda3/envs/fens2024/lib/python3.11/site-packages/hdmf/utils.py:668:<span class="w"> </span>UserWarning:<span class="w"> </span>Ignoring<span class="w"> </span>cached<span class="w"> </span>namespace<span class="w"> </span><span class="s1">&#39;hdmf-experimental&#39;</span><span class="w"> </span>version<span class="w"> </span><span class="m">0</span>.4.0<span class="w"> </span>because<span class="w"> </span>version<span class="w"> </span><span class="m">0</span>.5.0<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>loaded.
 <span class="w">  </span><span class="k">return</span><span class="w"> </span>func<span class="o">(</span>args<span class="o">[</span><span class="m">0</span><span class="o">]</span>,<span class="w"> </span>**pargs<span class="o">)</span>
 allen_478498617
 ┍━━━━━━━━━━┯━━━━━━━━━━━━━┑
@@ -898,7 +977,7 @@ allen_478498617
 │<span class="w"> </span>response<span class="w"> </span>│<span class="w"> </span>Tsd<span class="w">         </span>│
 ┕━━━━━━━━━━┷━━━━━━━━━━━━━┙
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 136-163 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 138-165 -->
 
 <p>The dataset contains several different pynapple objects, which we discussed yesterday.
 Let's see how these relate to the data we visualized above:</p>
@@ -927,7 +1006,7 @@ Let's see how these relate to the data we visualized above:</p>
 </div>
 
 <p>First, let's examine the epochs:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 164-168 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 166-170 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">epochs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span>
 <span class="n">epochs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -935,7 +1014,7 @@ Let's see how these relate to the data we visualized above:</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>dict_keys<span class="o">([</span><span class="s1">&#39;Long Square&#39;</span>,<span class="w"> </span><span class="s1">&#39;Noise 1&#39;</span>,<span class="w"> </span><span class="s1">&#39;Noise 2&#39;</span>,<span class="w"> </span><span class="s1">&#39;Ramp&#39;</span>,<span class="w"> </span><span class="s1">&#39;Short Square&#39;</span>,<span class="w"> </span><span class="s1">&#39;Short Square - Triple&#39;</span>,<span class="w"> </span><span class="s1">&#39;Square - 2s Suprathreshold&#39;</span>,<span class="w"> </span><span class="s1">&#39;Test&#39;</span><span class="o">])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 169-177 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 171-179 -->
 
 <p><code>epochs</code> is a dictionary with strings for keys and
 <a href="https://pynapple-org.github.io/pynapple/reference/core/interval_set/"><code>IntervalSets</code></a>
@@ -945,7 +1024,7 @@ the beginning and end of that stimulation protocol.</p>
 - `Noise 1`: epochs of random noise
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 178-182 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 180-184 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">noise_interval</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="s2">&quot;Noise 1&quot;</span><span class="p">]</span>
 <span class="n">noise_interval</span>
@@ -957,7 +1036,7 @@ the beginning and end of that stimulation protocol.</p>
 <span class="w">       </span><span class="m">2</span><span class="w">  </span><span class="m">592</span>.848<span class="w">  </span><span class="m">620</span>.868
 shape:<span class="w"> </span><span class="o">(</span><span class="m">3</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span>,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>unit:<span class="w"> </span>sec.
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 183-191 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 185-193 -->
 
 <p>As described above, we will be examining "Noise 1". We can see it contains
 three rows, each defining a separate sweep. We'll just grab the first sweep
@@ -967,7 +1046,7 @@ gray).</p>
 - Let's focus on the first epoch.
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 192-196 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 194-198 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">noise_interval</span> <span class="o">=</span> <span class="n">noise_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">noise_interval</span>
@@ -977,14 +1056,14 @@ gray).</p>
 <span class="w">       </span><span class="m">0</span><span class="w">  </span><span class="m">460</span>.768<span class="w">  </span><span class="m">488</span>.788
 shape:<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">2</span><span class="o">)</span>,<span class="w"> </span><span class="nb">time</span><span class="w"> </span>unit:<span class="w"> </span>sec.
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 197-202 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 199-204 -->
 
 <p>Now let's examine the input current:</p>
 <div class="notes">"
 - `current` : Tsd (TimeSeriesData) : time index + data
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 203-209 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 205-211 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># convert current from Ampere to pico-amperes, to match the Allen Institute figures and</span>
 <span class="c1"># move the values to a more reasonable range.</span>
@@ -1012,9 +1091,7 @@ shape:<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<
 <span class="m">0</span>.00075<span class="w">         </span><span class="m">0</span>
 <span class="m">0</span>.0008<span class="w">          </span><span class="m">0</span>
 <span class="m">0</span>.00085<span class="w">         </span><span class="m">0</span>
-<span class="m">0</span>.0009<span class="w">          </span><span class="m">0</span>
 ...
-<span class="m">897</span>.420049999<span class="w">   </span><span class="m">0</span>
 <span class="m">897</span>.420099999<span class="w">   </span><span class="m">0</span>
 <span class="m">897</span>.420149999<span class="w">   </span><span class="m">0</span>
 <span class="m">897</span>.420199999<span class="w">   </span><span class="m">0</span>
@@ -1035,7 +1112,7 @@ shape:<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<
 <span class="m">897</span>.420949999<span class="w">   </span><span class="m">0</span>
 dtype:<span class="w"> </span>float64,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">11348420</span>,<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 210-224 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 212-226 -->
 
 <p><code>current</code> is a <code>Tsd</code>
 (<a href="https://pynapple-org.github.io/pynapple/reference/core/time_series/">TimeSeriesData</a>)
@@ -1050,7 +1127,7 @@ of the <code>noise_interval</code> we defined above:</p>
 - `restrict` : restricts a time series object to a set of time intervals delimited by an IntervalSet object
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 225-230 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 227-232 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">noise_interval</span><span class="p">)</span>
 <span class="n">current</span>
@@ -1076,9 +1153,7 @@ of the <code>noise_interval</code> we defined above:</p>
 <span class="m">460</span>.76875<span class="w">       </span><span class="m">0</span>
 <span class="m">460</span>.7688<span class="w">        </span><span class="m">0</span>
 <span class="m">460</span>.76885<span class="w">       </span><span class="m">0</span>
-<span class="m">460</span>.7689<span class="w">        </span><span class="m">0</span>
 ...
-<span class="m">488</span>.787049993<span class="w">   </span><span class="m">0</span>
 <span class="m">488</span>.787099993<span class="w">   </span><span class="m">0</span>
 <span class="m">488</span>.787149993<span class="w">   </span><span class="m">0</span>
 <span class="m">488</span>.787199993<span class="w">   </span><span class="m">0</span>
@@ -1099,7 +1174,7 @@ of the <code>noise_interval</code> we defined above:</p>
 <span class="m">488</span>.787949993<span class="w">   </span><span class="m">0</span>
 dtype:<span class="w"> </span>float64,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">560400</span>,<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 231-242 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 233-244 -->
 
 <p>Notice that the timestamps have changed and our shape is much smaller.</p>
 <p>Finally, let's examine the spike times. These are stored in a
@@ -1111,7 +1186,7 @@ potentially different time indices:</p>
   potentially different time indices.
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 243-247 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 245-249 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">spikes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span>
 <span class="n">spikes</span>
@@ -1121,7 +1196,7 @@ potentially different time indices:</p>
 -------<span class="w">  </span>-------<span class="w">  </span>----------<span class="w">  </span>-------
 <span class="w">      </span><span class="m">0</span><span class="w">  </span><span class="m">0</span>.87805<span class="w">  </span>v1<span class="w">                </span><span class="m">0</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 248-259 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 250-261 -->
 
 <p>Typically, this is used to hold onto the spike times for a population of
 neurons. In this experiment, we only have recordings from a single neuron, so
@@ -1133,7 +1208,7 @@ We can index into the `TsGroup` to see the timestamps for this neuron's
 spikes:
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 260-263 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 262-265 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">spikes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </code></pre></div>
@@ -1157,9 +1232,7 @@ spikes:
 <span class="m">3</span>.21995
 <span class="m">3</span>.277105
 <span class="m">3</span>.328295
-<span class="m">3</span>.37881
 ...
-<span class="m">835</span>.38588
 <span class="m">843</span>.40877
 <span class="m">843</span>.57167
 <span class="m">843</span>.734835
@@ -1180,7 +1253,7 @@ spikes:
 <span class="m">886</span>.76995
 shape:<span class="w"> </span><span class="m">777</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 264-271 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 266-273 -->
 
 <p>Similar to <code>current</code>, this object originally contains data from the entire
 experiment. To get only the data we need, we again use
@@ -1189,7 +1262,7 @@ experiment. To get only the data we need, we again use
 Let's restrict to the same epoch `noise_interval`:
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 272-278 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 274-280 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">spikes</span> <span class="o">=</span> <span class="n">spikes</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">noise_interval</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span>
@@ -1219,9 +1292,7 @@ Time<span class="w"> </span><span class="o">(</span>s<span class="o">)</span>
 <span class="m">478</span>.896305
 <span class="m">478</span>.92566
 <span class="m">478</span>.955415
-<span class="m">478</span>.993125
 ...
-<span class="m">479</span>.154195
 <span class="m">479</span>.196605
 <span class="m">479</span>.24137
 <span class="m">479</span>.59276
@@ -1242,7 +1313,7 @@ Time<span class="w"> </span><span class="o">(</span>s<span class="o">)</span>
 <span class="m">481</span>.67727
 shape:<span class="w"> </span><span class="m">40</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 279-285 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 281-287 -->
 
 <p>Now, let's visualize the data from this trial, replicating rows 1 and 3
 from the Allen Brain Atlas figure at the beginning of this notebook:</p>
@@ -1250,7 +1321,7 @@ from the Allen Brain Atlas figure at the beginning of this notebook:</p>
 Let's visualize the data from this trial:
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 286-293 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 288-295 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="s2">&quot;grey&quot;</span><span class="p">)</span>
@@ -1262,7 +1333,7 @@ Let's visualize the data from this trial:
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Text<span class="o">(</span><span class="m">0</span>.5,<span class="w"> </span>-6.277777777777782,<span class="w"> </span><span class="s1">&#39;Time (s)&#39;</span><span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 294-342 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 296-344 -->
 
 <h3 id="basic-analyses">Basic analyses</h3>
 <p>Before using the Generalized Linear Model, or any model, it's worth taking some time
@@ -1306,7 +1377,7 @@ pynapple to visualize this firing rate for a single trial.
 - `count` : count the number of events within `bin_size`
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 343-350 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 345-352 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># bin size in seconds</span>
 <span class="n">bin_size</span> <span class="o">=</span> <span class="mf">0.001</span>
@@ -1335,9 +1406,7 @@ pynapple to visualize this firing rate for a single trial.
 <span class="m">460</span>.7835<span class="w">     </span><span class="m">0</span>
 <span class="m">460</span>.7845<span class="w">     </span><span class="m">0</span>
 <span class="m">460</span>.7855<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7865<span class="w">     </span><span class="m">0</span>
 ...
-<span class="m">488</span>.7695<span class="w">     </span><span class="m">0</span>
 <span class="m">488</span>.7705<span class="w">     </span><span class="m">0</span>
 <span class="m">488</span>.7715<span class="w">     </span><span class="m">0</span>
 <span class="m">488</span>.7725<span class="w">     </span><span class="m">0</span>
@@ -1358,7 +1427,7 @@ pynapple to visualize this firing rate for a single trial.
 <span class="m">488</span>.7875<span class="w">     </span><span class="m">0</span>
 dtype:<span class="w"> </span>int64,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 351-359 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 353-361 -->
 
 <p>Now, let's convert the binned spikes into the firing rate, by smoothing them
 with a gaussian kernel. Pynapple again provides a convenience function for
@@ -1369,7 +1438,7 @@ Let's convert the spike counts to firing rate :
 - `smooth` : convolve with a Gaussian kernel
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 360-368 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 362-370 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># the inputs to this function are the standard deviation of the gaussian in seconds and</span>
 <span class="c1"># the full width of the window, in standard deviations. So std=.05 and size_factor=20</span>
@@ -1378,11 +1447,11 @@ Let's convert the spike counts to firing rate :
 <span class="c1"># convert from spikes per bin to spikes per second (Hz)</span>
 <span class="n">firing_rate</span> <span class="o">=</span> <span class="n">firing_rate</span> <span class="o">/</span> <span class="n">bin_size</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 369-371 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 371-373 -->
 
 <p>Now that we've done all this preparation, let's make a plot to more easily
 visualize the data.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 372-379 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 374-381 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># we&#39;re hiding the details of the plotting function for the purposes of this</span>
 <span class="c1"># tutorial, but you can find it in the associated github repo if you&#39;re</span>
@@ -1391,7 +1460,7 @@ visualize the data.</p>
 <span class="n">plotting</span><span class="o">.</span><span class="n">current_injection_plot</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">spikes</span><span class="p">,</span> <span class="n">firing_rate</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="Injected Current, Neural response" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_002.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_002.png" /></p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 380-411 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 382-413 -->
 
 <p>So now that we can view the details of our experiment a little more clearly,
 what do we see?</p>
@@ -1427,7 +1496,7 @@ What is the relationship between the current and the spiking activity?
 [`compute_1d_tuning_curves`](https://pynapple-org.github.io/pynapple/reference/process/tuning_curves/#pynapple.process.tuning_curves.compute_1d_tuning_curves) : compute the firing rate as a function of a 1-dimensional feature.
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 412-416 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 414-418 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">tuning_curve</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">compute_1d_tuning_curves</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">nb_bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">tuning_curve</span>
@@ -1520,7 +1589,7 @@ What is the relationship between the current and the spiking activity?
     </div>
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 417-424 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 419-426 -->
 
 <p><code>tuning_curve</code> is a pandas DataFrame where each column is a neuron (one
 neuron in this case) and each row is a bin over the feature (here, the input
@@ -1529,7 +1598,7 @@ current). We can easily plot the tuning curve of the neuron:</p>
 Let's plot the tuning curve of the neuron.
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 425-429 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 427-431 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">plotting</span><span class="o">.</span><span class="n">tuning_curve_plot</span><span class="p">(</span><span class="n">tuning_curve</span><span class="p">)</span>
 </code></pre></div>
@@ -1537,7 +1606,7 @@ Let's plot the tuning curve of the neuron.
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;Figure<span class="w"> </span>size<span class="w"> </span>640x480<span class="w"> </span>with<span class="w"> </span><span class="m">1</span><span class="w"> </span>Axes&gt;
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 430-438 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 432-440 -->
 
 <p>We can see that, while the firing rate mostly increases with the current,
 it's definitely not a linear relationship, and it might start decreasing as
@@ -1546,7 +1615,7 @@ the current gets too large.</p>
 explain: the tuning curve between the firing rate and the current, the firing
 rate's periodicity, and the gradual reduction in firing rate while the
 current remains on.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 441-490 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 443-492 -->
 
 <h2 class="strip-code" id="nemos">NeMoS</h2>
 <h3 id="preparing-data">Preparing data</h3>
@@ -1599,7 +1668,7 @@ term which comes from statistics.</p>
   - predictors and spikes must have same number of time points
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 490-501 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 492-503 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">binned_current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">bin_average</span><span class="p">(</span><span class="n">bin_size</span><span class="p">)</span>
 
@@ -1617,7 +1686,7 @@ current<span class="w"> </span>sampling<span class="w"> </span>rate:<span class=
 count<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="o">)</span>
 count<span class="w"> </span>sampling<span class="w"> </span>rate:<span class="w"> </span><span class="m">1</span>.00<span class="w"> </span>KHz
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 502-514 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 504-516 -->
 
 <p>Secondly, we have to reshape our variables so that they are the proper shape:</p>
 <ul>
@@ -1631,7 +1700,7 @@ to ensure it is a 2d array.</p>
   - predictors must be 2d, spikes 1d
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 515-523 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 517-525 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># make sure predictor is 2d</span>
 <span class="n">predictor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">binned_current</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -1644,7 +1713,7 @@ to ensure it is a 2d array.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>predictor<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="w"> </span><span class="m">1</span><span class="o">)</span>
 count<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 524-590 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 526-592 -->
 
 <div class="admonition info">
 <p class="admonition-title">What if I have more than one neuron?</p>
@@ -1709,11 +1778,17 @@ behave!</p>
   - GLM objects need regularizers and observation models
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 590-593 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 592-595 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">nmo</span><span class="o">.</span><span class="n">glm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">solver_name</span><span class="o">=</span><span class="s2">&quot;LBFGS&quot;</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 594-602 -->
+<div class="mkd-glr-script-err-disp highlight"><pre><span></span><code><span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;/Users/gviejo/single-cell-neuropython-workshop-2024/docs/examples/tutorial_pynapple_nemos_single_cell_full.py&quot;</span>, line <span class="m">593</span>, in <span class="n">&lt;module&gt;</span>
+<span class="w">    </span><span class="n">model</span> <span class="o">=</span> <span class="n">nmo</span><span class="o">.</span><span class="n">glm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">solver_name</span><span class="o">=</span><span class="s2">&quot;LBFGS&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="pm">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="gr">TypeError</span>: <span class="n">GLM.__init__() got an unexpected keyword argument &#39;solver_name&#39;</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 596-604 -->
 
 <p>Now that we've initialized our model with the optimization parameters, we can
 fit our data! In the previous section, we prepared our model matrix
@@ -1723,39 +1798,29 @@ pass them to the model:</p>
   - call fit and retrieve parameters
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 603-606 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 605-608 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x3597cafd0&gt;
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 607-610 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 609-612 -->
 
 <p>Now that we've fit our data, we can retrieve the resulting parameters.
 Similar to scikit-learn, these are stored as the <code>coef_</code> and <code>intercept_</code>
 attributes:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 611-614 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 613-616 -->
 
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;firing_rate(t) = exp(</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="si">}</span><span class="s2"> * current(t) + </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>firing_rate<span class="o">(</span>t<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>exp<span class="o">([</span><span class="m">0</span>.05330383<span class="o">]</span><span class="w"> </span>*<span class="w"> </span>current<span class="o">(</span>t<span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="o">[</span>-9.761143<span class="o">])</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 615-617 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 617-619 -->
 
 <p>Note that <code>model.coef_</code> has shape <code>(n_features, )</code> and <code>model.intercept_</code> has shape
 <code>(n_neurons, )</code> (in this case, both are 1):</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 618-622 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 620-624 -->
 
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;coef_ shape: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;intercept_ shape: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>coef_<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="o">)</span>
-intercept_<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="o">)</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 623-634 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 625-636 -->
 
 <p>It's nice to get the parameters above, but we can't tell how well our model
 is doing by looking at them. So how should we evaluate our model?</p>
@@ -1767,7 +1832,7 @@ model's linear and nonlinear steps, as described in Edoardo's presentation!</p>
   - generate and examine model predictions.
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 635-648 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 637-650 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">predicted_fr</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">predictor</span><span class="p">)</span>
 <span class="c1"># convert units from spikes/bin to spikes/sec</span>
@@ -1781,12 +1846,7 @@ model's linear and nonlinear steps, as described in Edoardo's presentation!</p>
 <span class="n">plotting</span><span class="o">.</span><span class="n">current_injection_plot</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">spikes</span><span class="p">,</span> <span class="n">firing_rate</span><span class="p">,</span>
                                                <span class="n">smooth_predicted_fr</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="Injected Current, Neural response" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_004.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_004.png" /></p>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/gviejo/pynapple/pynapple/core/utils.py:196:<span class="w"> </span>UserWarning:<span class="w"> </span>Converting<span class="w"> </span><span class="s1">&#39;d&#39;</span><span class="w"> </span>to<span class="w"> </span>numpy.array.<span class="w"> </span>The<span class="w"> </span>provided<span class="w"> </span>array<span class="w"> </span>was<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;ArrayImpl&#39;</span>.
-<span class="w">  </span>warnings.warn<span class="o">(</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 649-675 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 651-677 -->
 
 <p>What do we see above? Note that the y-axes in the final row are different for
 each subplot!</p>
@@ -1818,17 +1878,13 @@ period:</p>
   - what do we see?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 676-681 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 678-683 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># compare observed mean firing rate with the model predicted one</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observed mean firing rate: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">bin_size</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicted mean firing rate: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predicted_fr</span><span class="p">)</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Observed<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate:<span class="w"> </span><span class="m">1</span>.4275517487508922<span class="w"> </span>Hz
-Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate:<span class="w"> </span><span class="m">1</span>.430655598640442<span class="w"> </span>Hz
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 682-693 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 684-695 -->
 
 <p>We matched the average pretty well! So we've matched the average and the
 range from the third interval reasonably well, but overshot at low
@@ -1840,18 +1896,14 @@ beginning of this notebook. Pynapple can help us again with this:</p>
   - examine tuning curve &mdash; what do we see?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 694-700 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 696-702 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">tuning_curve_model</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">compute_1d_tuning_curves_continuous</span><span class="p">(</span><span class="n">predicted_fr</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plotting</span><span class="o">.</span><span class="n">tuning_curve_plot</span><span class="p">(</span><span class="n">tuning_curve</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tuning_curve_model</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tomato&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;glm&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="tutorial pynapple nemos single cell full" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_005.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_005.png" /></p>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x3576fe250&gt;
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 701-735 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 703-737 -->
 
 <p>In addition to making the mismatch at low and medium input values discussed earlier a
 little more obvious, this tuning curve comparison also highlights that this model
@@ -1881,70 +1933,26 @@ necessary.</p>
   - choose a length of time over which the neuron integrates the input current
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 736-742 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 738-744 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">current_history_duration_sec</span> <span class="o">=</span> <span class="mf">.2</span>
 <span class="c1"># convert this from sec to bins</span>
 <span class="n">current_history_duration</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">current_history_duration_sec</span> <span class="o">/</span> <span class="n">bin_size</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 743-748 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 745-750 -->
 
 <p>To construct our new predictors, we could simply take the current and shift it
 incrementally. The value of predictor <code>binned_current</code> at time $t$ is the injected
 current at time $t$; by shifting <code>binned_current</code> backwareds by 1, we are modeling the
 effect of the current at time $t-1$ on the firing rate at time $t$, and so on for all
 shifts $i$ up to <code>current_history_duration</code>:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 748-753 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 750-755 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">binned_current</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 <span class="n">binned_current</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
 <span class="c1"># etc</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Time<span class="w"> </span><span class="o">(</span>s<span class="o">)</span>
-----------<span class="w">  </span>--
-<span class="m">460</span>.7705<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7715<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7725<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7735<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7745<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7755<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7765<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7775<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7785<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7795<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7805<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7815<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7825<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7835<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7845<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7855<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7865<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7875<span class="w">     </span><span class="m">0</span>
-<span class="m">460</span>.7885<span class="w">     </span><span class="m">0</span>
-...
-<span class="m">488</span>.7695<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7705<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7715<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7725<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7735<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7745<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7755<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7765<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7775<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7785<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7795<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7805<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7815<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7825<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7835<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7845<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7855<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7865<span class="w">     </span><span class="m">0</span>
-<span class="m">488</span>.7875<span class="w">     </span><span class="m">0</span>
-dtype:<span class="w"> </span>float64,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28018</span>,<span class="o">)</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 754-772 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 756-774 -->
 
 <p>In general, however, this is not a good way to extend the model in the way discussed.
 You will end end up with a very large number of predictive variables (one for every
@@ -1962,12 +1970,11 @@ property that their precision drops linearly with distance from event, which is 
 makes sense for many history-related inputs in neuroscience: whether an input happened
 1 or 5 msec ago matters a lot, whereas whether an input happened 51 or 55 msec ago is
 less important.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 772-775 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 774-777 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">plotting</span><span class="o">.</span><span class="n">plot_basis</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="Log-stretched raised cosine basis" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_006.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_006.png" /></p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 776-804 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 778-806 -->
 
 <p>NeMoS's <code>Basis</code> objects handle the construction and use of these basis functions. When
 we instantiate this object, the main argument we need to specify is the number of
@@ -1995,13 +2002,13 @@ represent with the basis:</p>
   - define a basis object
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 804-809 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 806-811 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">basis</span> <span class="o">=</span> <span class="n">nmo</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">RaisedCosineBasisLog</span><span class="p">(</span>
     <span class="n">n_basis_funcs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="n">current_history_duration</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 810-830 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 812-832 -->
 
 <div class="admonition note">
 <p class="admonition-title">Visualizing <code>Basis</code> objects</p>
@@ -2021,59 +2028,13 @@ order to create plots like the type seen above.</p>
   - examine the features it contains
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 831-836 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 833-838 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># under the hood, this convolves the input with the filter bank visualized above</span>
 <span class="n">current_history</span> <span class="o">=</span> <span class="n">basis</span><span class="o">.</span><span class="n">compute_features</span><span class="p">(</span><span class="n">binned_current</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">current_history</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/gviejo/pynapple/pynapple/core/utils.py:196:<span class="w"> </span>UserWarning:<span class="w"> </span>Converting<span class="w"> </span><span class="s1">&#39;d&#39;</span><span class="w"> </span>to<span class="w"> </span>numpy.array.<span class="w"> </span>The<span class="w"> </span>provided<span class="w"> </span>array<span class="w"> </span>was<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;ArrayImpl&#39;</span>.
-<span class="w">  </span>warnings.warn<span class="o">(</span>
-Time<span class="w"> </span><span class="o">(</span>s<span class="o">)</span><span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">1</span><span class="w">    </span><span class="m">2</span><span class="w">    </span><span class="m">3</span><span class="w">    </span><span class="m">4</span><span class="w">  </span>...
-----------<span class="w">  </span>---<span class="w">  </span>---<span class="w">  </span>---<span class="w">  </span>---<span class="w">  </span>---<span class="w">  </span>-----
-<span class="m">460</span>.7685<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7695<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7705<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7715<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7725<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7735<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7745<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7755<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7765<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7775<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7785<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7795<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7805<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7815<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7825<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7835<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7845<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7855<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-<span class="m">460</span>.7865<span class="w">    </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>nan<span class="w">  </span>...
-...
-<span class="m">488</span>.7695<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7705<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7715<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7725<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7735<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7745<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7755<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7765<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7775<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7785<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7795<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7805<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7815<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7825<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7835<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7845<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7855<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7865<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-<span class="m">488</span>.7875<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-dtype:<span class="w"> </span>float32,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="w"> </span><span class="m">10</span><span class="o">)</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 837-848 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 839-850 -->
 
 <p>We can see that our design matrix is now 28020 time points by 10 features, one for
 each of our basis functions. If we had used the raw shifted data as the features, like
@@ -2084,7 +2045,7 @@ boundary handling: we're using the input of the past 200 msecs to predict the fi
 rate at time $t$, so what do we do in the first 200 msecs? The safest way is to ignore
 them, so that the model doesn't consider them during the fitting procedure.</p>
 <p>What do these features look like?</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 849-856 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 851-858 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># in this plot, we&#39;re normalizing the amplitudes to make the comparison easier --</span>
 <span class="c1"># the amplitude of these features will be fit by the model, so their un-scaled</span>
@@ -2092,8 +2053,7 @@ them, so that the model doesn't consider them during the fitting procedure.</p>
 <span class="n">plotting</span><span class="o">.</span><span class="n">plot_current_history_features</span><span class="p">(</span><span class="n">binned_current</span><span class="p">,</span> <span class="n">current_history</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span>
                                                       <span class="n">current_history_duration_sec</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="Feature 1, Feature 10, All features" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" /></p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 857-885 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 859-887 -->
 
 <p>On the top row, we're visualizing the basis functions, as above. On the bottom row,
 we're showing the input current, as a black dashed line, and corresponding features
@@ -2120,38 +2080,27 @@ the design matrix we pass to the model:</p>
   - examine the parameters
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 886-890 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 888-892 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">history_model</span> <span class="o">=</span> <span class="n">nmo</span><span class="o">.</span><span class="n">glm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">solver_name</span><span class="o">=</span><span class="s2">&quot;LBFGS&quot;</span><span class="p">)</span>
 <span class="n">history_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">current_history</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x35be6dfd0&gt;
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 891-892 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 893-894 -->
 
 <p>As before, we can examine our parameters, <code>coef_</code> and <code>intercept_</code>:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 893-896 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 895-898 -->
 
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;firing_rate(t) = exp(</span><span class="si">{</span><span class="n">history_model</span><span class="o">.</span><span class="n">coef_</span><span class="si">}</span><span class="s2"> * current(t) + </span><span class="si">{</span><span class="n">history_model</span><span class="o">.</span><span class="n">intercept_</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>firing_rate<span class="o">(</span>t<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>exp<span class="o">([</span>-0.18239757<span class="w">  </span><span class="m">0</span>.19256012<span class="w"> </span>-0.08882547<span class="w">  </span><span class="m">0</span>.02926374<span class="w"> </span>-0.00101938<span class="w"> </span>-0.00541549
-<span class="w">  </span><span class="m">0</span>.00264424<span class="w"> </span>-0.00147817<span class="w">  </span><span class="m">0</span>.00111308<span class="w"> </span>-0.00063025<span class="o">]</span><span class="w"> </span>*<span class="w"> </span>current<span class="o">(</span>t<span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="o">[</span>-7.5384316<span class="o">])</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 897-898 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 899-900 -->
 
 <p>Notice the shape of these parameters:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 899-903 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 901-905 -->
 
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">history_model</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">history_model</span><span class="o">.</span><span class="n">intercept_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><span class="o">(</span><span class="m">10</span>,<span class="o">)</span>
-<span class="o">(</span><span class="m">1</span>,<span class="o">)</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 904-914 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 906-916 -->
 
 <p><code>coef_</code> has 10 values now, while <code>intercept_</code> still has one &mdash; why is that?
 Because we now have 10 features, but still only 1 neuron whose firing rate we're
@@ -2162,7 +2111,7 @@ predicting.</p>
   - what do we see?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 915-923 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 917-925 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># all this code is the same as above</span>
 <span class="n">history_pred_fr</span> <span class="o">=</span> <span class="n">history_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">current_history</span><span class="p">)</span>
@@ -2172,12 +2121,7 @@ predicting.</p>
                                                <span class="c1"># compare against the old firing rate</span>
                                                <span class="n">smooth_history_pred_fr</span><span class="p">,</span> <span class="n">smooth_predicted_fr</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="Injected Current, Neural response" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_008.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_008.png" /></p>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/Users/gviejo/pynapple/pynapple/core/utils.py:196:<span class="w"> </span>UserWarning:<span class="w"> </span>Converting<span class="w"> </span><span class="s1">&#39;d&#39;</span><span class="w"> </span>to<span class="w"> </span>numpy.array.<span class="w"> </span>The<span class="w"> </span>provided<span class="w"> </span>array<span class="w"> </span>was<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;ArrayImpl&#39;</span>.
-<span class="w">  </span>warnings.warn<span class="o">(</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 924-936 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 926-938 -->
 
 <p>We can see that there are only some small changes here. Our new model maintains the
 two successes of the old one: firing rate increases with injected current and shows
@@ -2190,7 +2134,7 @@ onset transience, especially in the third interval.</p>
   - what do we see?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 937-949 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 939-951 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># compare observed mean firing rate with the history_model predicted one</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observed mean firing rate: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">bin_size</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
@@ -2203,15 +2147,7 @@ onset transience, especially in the third interval.</p>
 <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tuning_curve_model</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tomato&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;glm (instantaneous current)&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="tutorial pynapple nemos single cell full" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_009.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_009.png" /></p>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Observed<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate:<span class="w"> </span><span class="m">1</span>.4275517487508922<span class="w"> </span>Hz
-Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span><span class="m">1</span>.430655598640442<span class="w"> </span>Hz
-Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">1</span>.9733861466792997<span class="w"> </span>Hz
-
-&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x35981e250&gt;
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 950-963 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 952-965 -->
 
 <p>This new model is actually doing a worse job matching the mean firing rate. Looking at
 the tuning curve, it looks like this model does predict response saturation, at about
@@ -2225,18 +2161,14 @@ weights, and we can calculate this number using its <code>score</code> method:</
   - use log-likelihood to compare models
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 964-970 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 966-972 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">log_likelihood</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">score_type</span><span class="o">=</span><span class="s2">&quot;log-likelihood&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log-likelihood (instantaneous current): </span><span class="si">{</span><span class="n">log_likelihood</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">log_likelihood</span> <span class="o">=</span> <span class="n">history_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">current_history</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">score_type</span><span class="o">=</span><span class="s2">&quot;log-likelihood&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log-likelihood (current history): </span><span class="si">{</span><span class="n">log_likelihood</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>log-likelihood<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span>-0.007939920760691166
-log-likelihood<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span>-0.008206888101994991
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 971-1002 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 973-1004 -->
 
 <p>This log-likelihood is un-normalized and thus doesn't mean that much by
 itself, other than "higher=better". When comparing alternative GLMs fit on
@@ -2266,18 +2198,14 @@ provide the ability to compute the pseudo-$R^2$ for this purpose:</p>
   - what if you want to compare models across datasets?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 1003-1009 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 1005-1011 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">r2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">score_type</span><span class="o">=</span><span class="s1">&#39;pseudo-r2-Cohen&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pseudo-r2 (instantaneous current): </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="n">history_model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">current_history</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">score_type</span><span class="o">=</span><span class="s1">&#39;pseudo-r2-Cohen&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pseudo-r2 (current history): </span><span class="si">{</span><span class="n">r2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>pseudo-r2<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.3037663698196411
-pseudo-r2<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.28069862723350525
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 1010-1017 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 1012-1019 -->
 
 <p>Additionally, you might be wondering how to simulate spikes &mdash; the GLM is a LNP
 model, but the firing rate is just the output of <em>LN</em>, its first two steps. The firing
@@ -2286,11 +2214,11 @@ rate is just the mean of a Poisson process, so we can pass it to <code>jax.rando
   - what about spiking?
 </div>
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 1018-1021 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 1020-1023 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">spikes</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">123</span><span class="p">),</span> <span class="n">predicted_fr</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 1022-1037 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 1024-1039 -->
 
 <p>Note that this is not actually that informative and, in general, it is
 recommended that you focus on firing rates when interpreting your model.</p>
@@ -2299,7 +2227,7 @@ including spike history is often helpful, it can sometimes make simulations unst
 if your GLM includes auto-regressive inputs (e.g., neurons are
 connected to themselves or each other), simulations can sometimes can behave
 poorly because of runaway excitation <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup> <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 1040-1115 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 1042-1117 -->
 
 <h2 class="strip-headers" id="further-exercises">Further Exercises</h2>
 <div class="notes">
@@ -2366,7 +2294,7 @@ characterization. eLife, 2021;10:e65482. https://doi.org/10.7554/eLife.65482</p>
 Ting, J., et al. (2021) Human neocortical expansion involves glutamatergic
 neuron diversification. Nature, 598(7879):151-158. doi:
 10.1038/s41586-021-03813-8</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  7.574 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.863 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell_full.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: tutorial_pynapple_nemos_single_cell_full.py</a></p>
@@ -2439,10 +2367,10 @@ May 2017.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to f
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "content.code.copy", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../../javascripts/katex.js"></script>
       

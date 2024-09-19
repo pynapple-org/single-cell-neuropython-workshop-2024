@@ -9,25 +9,25 @@
       
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="example_load_to_pynapple/">
+        <link rel="next" href="../tutorial_pynapple_nemos_single_cell/">
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
-        <title>Tutorial - Single-cell neuropython workshop 2024</title>
+        <title>Load Allen Brain Map NWBs into pynapple - Single-cell neuropython workshop 2024</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,15 +48,15 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
     
-      <link rel="stylesheet" href="../../sg_gallery-rendered-html.css">
+      <link rel="stylesheet" href="../../../sg_gallery-rendered-html.css">
     
-      <link rel="stylesheet" href="../../sg_gallery-dataframe.css">
+      <link rel="stylesheet" href="../../../sg_gallery-dataframe.css">
     
-      <link rel="stylesheet" href="../../sg_gallery-binder.css">
+      <link rel="stylesheet" href="../../../sg_gallery-binder.css">
     
-      <link rel="stylesheet" href="../../sg_gallery.css">
+      <link rel="stylesheet" href="../../../sg_gallery.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#single-cell-neuropython-workshop-2024" class="md-skip">
+        <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Single-cell neuropython workshop 2024" class="md-header__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
+    <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-header__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorial
+              Load Allen Brain Map NWBs into pynapple
             
           </span>
         </div>
@@ -195,7 +195,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
     
@@ -216,7 +216,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -251,7 +251,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Single-cell neuropython workshop 2024" class="md-nav__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
+    <a href="../../.." title="Single-cell neuropython workshop 2024" class="md-nav__button md-logo" aria-label="Single-cell neuropython workshop 2024" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -281,7 +281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -333,7 +333,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -344,7 +344,7 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -363,10 +363,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="example_load_to_pynapple/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Load Allen Brain Map NWBs into pynapple
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -375,6 +393,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Allen Brain Map NWBs into pynapple
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -387,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tutorial_pynapple_nemos_single_cell/" class="md-nav__link">
+      <a href="../tutorial_pynapple_nemos_single_cell/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -408,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tutorial_pynapple_nemos_single_cell_full/" class="md-nav__link">
+      <a href="../tutorial_pynapple_nemos_single_cell_full/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -446,8 +491,23 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Allen Brain Map NWBs into pynapple
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -465,58 +525,54 @@
   
 
 
-<!-- docs_generated_gallery -->
+  <h1>Load Allen Brain Map NWBs into pynapple</h1>
 
-<h1 id="single-cell-neuropython-workshop-2024">single-cell-neuropython-workshop-2024</h1>
-<p>Pynapple and Nemos material for workshop</p>
-<div class="mkd-glr-thumbcontainer" tooltip="In this example, we show how to load into pynapple an NWB directly downloaded from the Allen Br...">
-    <!--div class="figure align-default" id="id1"-->
-        <img alt="Load Allen Brain Map NWBs into pynapple" src="images/thumb/mkd_glr_example_load_to_pynapple_thumb.png" />
-        <p class="caption">
-            <span class="caption-text">
-                <a class="reference internal" href="example_load_to_pynapple">
-                    <span class="std std-ref">Load Allen Brain Map NWBs into pynapple</span>
-                </a>
-            </span>
-            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
-        </p>
-    <!--/div-->
+<!--
+ DO NOT EDIT.
+ THIS FILE WAS AUTOMATICALLY GENERATED BY mkdocs-gallery.
+ TO MAKE CHANGES, EDIT THE SOURCE PYTHON FILE:
+ "docs/examples/example_load_to_pynapple.py"
+ LINE NUMBERS ARE GIVEN BELOW.
+-->
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a href="#download_links">here</a>
+to download the full example code</p>
 </div>
-
-<div class="mkd-glr-thumbcontainer" tooltip="Tutorial pynapple &amp; NeMoS">
-    <!--div class="figure align-default" id="id1"-->
-        <img alt="Tutorial pynapple & NeMoS" src="images/thumb/mkd_glr_tutorial_pynapple_nemos_single_cell_thumb.png" />
-        <p class="caption">
-            <span class="caption-text">
-                <a class="reference internal" href="tutorial_pynapple_nemos_single_cell">
-                    <span class="std std-ref">Tutorial pynapple & NeMoS</span>
-                </a>
-            </span>
-            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
-        </p>
-    <!--/div-->
+<h2 id="load-allen-brain-map-nwbs-into-pynapple">Load Allen Brain Map NWBs into pynapple</h2>
+<p>In this example, we show how to load into pynapple an NWB directly downloaded from the Allen Brain Map.</p>
+<div class="admonition warning">
+<p class="admonition-title">Intracellular recordings NWBs and pynapple</p>
+<p>NWB files containing intracellular recordings cannot be imported directly into pynapple.
+This is because pynapple requires a continuous time axis, but these experiments are typically divided into sweeps,
+with each sweep starting at t = 0 seconds.</p>
+<p><a href="https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py">At this link</a>,
+we provide the <code>load_allen.py</code> module for loading intracellular recordings into <code>pynapple</code>.
+ It works by concatenating all sweeps together and adding a fixed inter-trial interval between sweeps to
+ create a continuous time axis.</p>
 </div>
+<p>For this example, let's assume that you download the dataset used in the tutorial directly from the Allen website:</p>
+<p><a href="https://celltypes.brain-map.org/experiment/electrophysiology/478498617">https://celltypes.brain-map.org/experiment/electrophysiology/478498617</a></p>
+<p>To load it into pynapple, you can run the following code,</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 23-36 -->
 
-<div class="mkd-glr-thumbcontainer" tooltip="For our first example, we will look at a very simple dataset: patch-clamp recordings from a sin...">
-    <!--div class="figure align-default" id="id1"-->
-        <img alt="Complete tutorial pynapple & NeMoS" src="images/thumb/mkd_glr_tutorial_pynapple_nemos_single_cell_full_thumb.png" />
-        <p class="caption">
-            <span class="caption-text">
-                <a class="reference internal" href="tutorial_pynapple_nemos_single_cell_full">
-                    <span class="std std-ref">Complete tutorial pynapple & NeMoS</span>
-                </a>
-            </span>
-            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
-        </p>
-    <!--/div-->
-</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># The &quot;load_allen.py&quot; module is in</span>
+<span class="c1"># https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py</span>
+<span class="kn">from</span> <span class="nn">load_allen</span> <span class="kn">import</span> <span class="n">load_to_pynapple</span>
 
-<div class="mkd-glr-clear"></div>
+<span class="c1"># replace this with the path to the nwb data</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;478498615_ephys.nwb&quot;</span>
 
+<span class="c1"># this will return the pynapple representation of the data.</span>
+<span class="c1"># note: that we used the same naming as in &quot;tutorial_pynapple_nemos_single_cell_full.py&quot;</span>
+<span class="n">spikes</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span>  <span class="n">current</span><span class="p">,</span> <span class="n">voltage</span><span class="p">,</span> <span class="n">sweep_metadata</span> <span class="o">=</span> <span class="n">load_to_pynapple</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div id="download_links"></div>
 
-<p><a class="md-button center" href="gallery_python.zip"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download all examples in Python source code: gallery_python.zip</a></p>
-<p><a class="md-button center" href="gallery_jupyter.zip"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download all examples in Jupyter notebooks: gallery_jupyter.zip</a></p>
+<p><a class="md-button center" href="../example_load_to_pynapple.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: example_load_to_pynapple.py</a></p>
+<p><a class="md-button center" href="../example_load_to_pynapple.ipynb"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Jupyter notebook: example_load_to_pynapple.ipynb</a></p>
 <p><a class="mkd-glr-signature" href="https://mkdocs-gallery.github.io">Gallery generated by mkdocs-gallery</a></p>
 
 
@@ -564,12 +620,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "content.code.copy", "navigation.indexes"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "content.code.copy", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
-        <script src="../../javascripts/katex.js"></script>
+        <script src="../../../javascripts/katex.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
       
