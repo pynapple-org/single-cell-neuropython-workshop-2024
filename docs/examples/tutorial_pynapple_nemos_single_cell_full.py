@@ -407,7 +407,7 @@ plotting.current_injection_plot(current, spikes, firing_rate)
 # binning our spikes based on the instantaneous input current and computing the
 # firing rate within those bins:
 #
-# <div class="notes">"
+# <div class="notes">
 # What is the relationship between the current and the spiking activity?
 # [`compute_1d_tuning_curves`](https://pynapple-org.github.io/pynapple/reference/process/tuning_curves/#pynapple.process.tuning_curves.compute_1d_tuning_curves) : compute the firing rate as a function of a 1-dimensional feature.
 # </div>
