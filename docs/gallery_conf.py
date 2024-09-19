@@ -19,5 +19,5 @@ conf = {
     # run every script that matches pattern
     # (here we match every file that ends in .py)
     'filename_pattern': re.escape(os.sep) + r"tutorial_.+\.py$",
-    'ignore_pattern': r"_plot_.+\.py$"    
+    'ignore_pattern': r"load_allen.py$"
 }

@@ -33,16 +33,18 @@
 # %%
 # Import everything
 
-import jax
+import math
 import os
+
+import jax
 import matplotlib.pyplot as plt
 import nemos as nmo
 import nemos.glm
 import numpy as np
 import pynapple as nap
+import requests
+import tqdm
 import workshop_utils.plotting as plotting
-import requests, tqdm
-
 
 # %%
 # configure plots some

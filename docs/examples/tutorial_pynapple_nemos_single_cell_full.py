@@ -65,17 +65,19 @@ Data for this notebook is a patch clamp experiment with a mouse V1 neuron, from 
 
 # !pip install pynapple nemos
 
+import math
+import os
+
 # %%
 # Import everything
 import jax
-import os
 import matplotlib.pyplot as plt
 import nemos as nmo
-import nemos.glm
 import numpy as np
 import pynapple as nap
+import requests
+import tqdm
 import workshop_utils.plotting as plotting
-import requests, tqdm
 
 # configure plots some
 plt.style.use("workshop_utils/nemos.mplstyle")
