@@ -16,7 +16,7 @@ In this example, we show how to load into pynapple an NWB directly downloaded fr
 
 For this example, let's assume that you download the dataset used in the tutorial directly from the Allen website:
 
-https://celltypes.brain-map.org/experiment/electrophysiology/478498617
+[https://celltypes.brain-map.org/experiment/electrophysiology/478498617](https://celltypes.brain-map.org/experiment/electrophysiology/478498617)
 
 To load it into pynapple, you can run the following code,
 """

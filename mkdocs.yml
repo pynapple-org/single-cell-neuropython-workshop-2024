@@ -5,8 +5,9 @@ theme:
   name: 'material'                         # The theme name, using the 'material' theme
   palette:
     primary: 'blue'                   # The primary color palette for the theme
-    features:
-      - navigation.tabs                    # Enable navigation tabs feature for the theme
+  features:
+    - navigation.tabs                    # Enable navigation tabs feature for the theme
+    - content.code.copy
   markdown_extensions:
     - md_in_html
     - admonition
