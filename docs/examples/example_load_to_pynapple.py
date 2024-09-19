@@ -1,5 +1,5 @@
 """
-## Load Allen Brain Map NWBs into pynapple
+# Load an Allen Brain Map NWB into pynapple
 
 In this example, we show how to load into pynapple an NWB directly downloaded from the Allen Brain Map.
 
