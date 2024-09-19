@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../">
-      
-      
-        <link rel="next" href="../tutorial_pynapple_nemos_single_cell/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -20,7 +16,7 @@
     
     
       
-        <title>Load Allen Brain Map NWBs into pynapple - Single-cell neuropython workshop 2024</title>
+        <title>Example load to pynapple - Single-cell neuropython workshop 2024</title>
       
     
     
@@ -47,6 +43,8 @@
     
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+      <link rel="stylesheet" href="../../../assets/extra.css">
     
       <link rel="stylesheet" href="../../../sg_gallery-rendered-html.css">
     
@@ -80,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-skip">
+        <a href="#load-an-allen-brain-map-nwb-into-pynapple" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Load Allen Brain Map NWBs into pynapple
+              Example load to pynapple
             
           </span>
         </div>
@@ -210,22 +208,51 @@
         
   
   
-    
   
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
-          
+    <li class="md-tabs__item">
+      <a href="../tutorial_pynapple_nemos_single_cell" class="md-tabs__link">
+        
   
     
   
   Tutorial
 
-        </a>
-      </li>
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tutorial_pynapple_nemos_single_cell_full" class="md-tabs__link">
+        
+  
     
+  
+  Solutions
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="." class="md-tabs__link">
+        
+  
+    
+  
+  Load NWB
+
+      </a>
+    </li>
   
 
       
@@ -298,145 +325,34 @@
       
   
   
-    
   
   
-  
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="../tutorial_pynapple_nemos_single_cell" class="md-nav__link">
         
-          
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-      
-        
-        
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
-              
   
   <span class="md-ellipsis">
     Tutorial
   </span>
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            Tutorial
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
+      </a>
+    </li>
   
-  
+
     
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Load Allen Brain Map NWBs into pynapple
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Load Allen Brain Map NWBs into pynapple
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-nav__link">
-    <span class="md-ellipsis">
-      Load Allen Brain Map NWBs into pynapple
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
   
   
   
   
     <li class="md-nav__item">
-      <a href="../tutorial_pynapple_nemos_single_cell/" class="md-nav__link">
+      <a href="../tutorial_pynapple_nemos_single_cell_full" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Tutorial pynapple & NeMoS
+    Solutions
   </span>
   
 
@@ -444,32 +360,23 @@
     </li>
   
 
-              
-            
-              
-                
+    
+      
+      
   
   
   
   
     <li class="md-nav__item">
-      <a href="../tutorial_pynapple_nemos_single_cell_full/" class="md-nav__link">
+      <a href="." class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Complete tutorial pynapple & NeMoS
+    Load NWB
   </span>
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -491,23 +398,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#load-allen-brain-map-nwbs-into-pynapple" class="md-nav__link">
-    <span class="md-ellipsis">
-      Load Allen Brain Map NWBs into pynapple
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -525,8 +417,6 @@
   
 
 
-  <h1>Load Allen Brain Map NWBs into pynapple</h1>
-
 <!--
  DO NOT EDIT.
  THIS FILE WAS AUTOMATICALLY GENERATED BY mkdocs-gallery.
@@ -540,7 +430,7 @@
 <p>Click <a href="#download_links">here</a>
 to download the full example code</p>
 </div>
-<h2 id="load-allen-brain-map-nwbs-into-pynapple">Load Allen Brain Map NWBs into pynapple</h2>
+<h1 id="load-an-allen-brain-map-nwb-into-pynapple">Load an Allen Brain Map NWB into pynapple</h1>
 <p>In this example, we show how to load into pynapple an NWB directly downloaded from the Allen Brain Map.</p>
 <div class="admonition warning">
 <p class="admonition-title">Intracellular recordings NWBs and pynapple</p>
