@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""# Complete tutorial pynapple & NeMoS
+"""# Solutions tutorial pynapple & NeMoS
 
 For our first example, we will look at a very simple dataset: patch-clamp
 recordings from a single neuron in layer 4 of mouse primary visual cortex. This

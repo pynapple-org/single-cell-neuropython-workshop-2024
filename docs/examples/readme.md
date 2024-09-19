@@ -1,2 +1,8 @@
-# single-cell-neuropython-workshop-2024
-Pynapple and Nemos material for workshop
+---
+hide:
+ - toc
+---
+# Single Cell Neuropython Workshop 2024
+
+Welcome to the Pynapple and NeMoS material for workshop.
+

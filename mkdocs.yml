@@ -51,6 +51,8 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 
 nav:
-    - Home: index.md                        # Link to the index.md file (home page)
-    - Tutorial: generated/gallery          # Link to the generated gallery as Tutorials
+    - Home: index.md          # Link to the generated gallery as Tutorials
+    - Tutorial: generated/gallery/tutorial_pynapple_nemos_single_cell
+    - Solutions: generated/gallery/tutorial_pynapple_nemos_single_cell_full
+    - Load NWB: generated/gallery/example_load_to_pynapple
     # - Code References: reference/           # Link to the reference/ directory
