@@ -8,7 +8,7 @@ In this example, we show how to load into pynapple an NWB directly downloaded fr
     This is because pynapple requires a continuous time axis, but these experiments are typically divided into sweeps,
     with each sweep starting at t = 0 seconds.
 
-    [Here](https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py),
+    [At this link](https://github.com/pynapple-org/single-cell-neuropython-workshop-2024/blob/main/docs/examples/load_allen.py),
     we provide the `load_allen.py` module for loading intracellular recordings into `pynapple`.
      It works by concatenating all sweeps together and adding a fixed inter-trial interval between sweeps to
      create a continuous time axis.
