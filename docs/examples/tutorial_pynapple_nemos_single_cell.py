@@ -278,7 +278,7 @@ if path not in os.listdir("."):
 # %%
 # ### Fitting the model
 # 
-#   - GLM objects need regularizers and observation models
+#   - define a GLM object
 # 
 
 # enter code here

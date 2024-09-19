@@ -587,7 +587,7 @@ print(f"count shape: {count.shape}")
 #     behave!
 #
 # <div class="notes">
-#   - GLM objects need regularizers and observation models
+#   - Define a GLM object
 # </div>
 
 model = nmo.glm.GLM(solver_name="LBFGS")
