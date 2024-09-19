@@ -22,7 +22,6 @@
 #     You can install all with `pip install matplotlib requests tqdm`
 #
 
-# %%
 # !pip install matplotlib requests tqdm
 
 # %%

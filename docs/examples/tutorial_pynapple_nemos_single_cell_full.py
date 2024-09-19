@@ -57,7 +57,7 @@ Data for this notebook is a patch clamp experiment with a mouse V1 neuron, from 
 #     You can install all with `pip install matplotlib requests tqdm`
 #
 
-# %%
+
 # !pip install matplotlib requests tqdm
 
 # %%
