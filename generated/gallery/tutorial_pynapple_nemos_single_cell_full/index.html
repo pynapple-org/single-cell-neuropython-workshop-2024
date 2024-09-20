@@ -1559,7 +1559,7 @@ pass them to the model:</p>
 <div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x1026a2190&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x3570c6ed0&gt;
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 609-612 -->
 
@@ -1680,7 +1680,7 @@ beginning of this notebook. Pynapple can help us again with this:</p>
 </code></pre></div>
 <p><img alt="tutorial pynapple nemos single cell full" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_005.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_005.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x329f7c4d0&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x31dcf9010&gt;
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 703-737 -->
 
@@ -1827,7 +1827,7 @@ represent with the basis:</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 806-811 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">basis</span> <span class="o">=</span> <span class="n">nmo</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">RaisedCosineBasisLog</span><span class="p">(</span>
-    <span class="n">n_basis_funcs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="n">current_history_duration</span><span class="p">,</span>
+    <span class="n">n_basis_funcs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="n">current_history_duration</span>
 <span class="p">)</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 812-832 -->
@@ -1898,7 +1898,7 @@ Time<span class="w"> </span><span class="o">(</span>s<span class="o">)</span><sp
 <span class="m">488</span>.7855<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
 <span class="m">488</span>.7865<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
 <span class="m">488</span>.7875<span class="w">      </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w">  </span>...
-dtype:<span class="w"> </span>float32,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="w"> </span><span class="m">10</span><span class="o">)</span>
+dtype:<span class="w"> </span>float32,<span class="w"> </span>shape:<span class="w"> </span><span class="o">(</span><span class="m">28020</span>,<span class="w"> </span><span class="m">8</span><span class="o">)</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 839-850 -->
 
@@ -1919,7 +1919,7 @@ them, so that the model doesn't consider them during the fitting procedure.</p>
 <span class="n">plotting</span><span class="o">.</span><span class="n">plot_current_history_features</span><span class="p">(</span><span class="n">binned_current</span><span class="p">,</span> <span class="n">current_history</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span>
                                                       <span class="n">current_history_duration_sec</span><span class="p">)</span>
 </code></pre></div>
-<p><img alt="Feature 1, Feature 10, All features" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" /></p>
+<p><img alt="Feature 1, Feature 8, All features" class="mkd-glr-single-img" src="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" srcset="../images/mkd_glr_tutorial_pynapple_nemos_single_cell_full_007.png" /></p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 859-887 -->
 
 <p>On the top row, we're visualizing the basis functions, as above. On the bottom row,
@@ -1953,7 +1953,7 @@ the design matrix we pass to the model:</p>
 <span class="n">history_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">current_history</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x329f0abd0&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;nemos.glm.GLM<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x31db42c50&gt;
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 893-894 -->
 
@@ -1963,8 +1963,8 @@ the design matrix we pass to the model:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;firing_rate(t) = exp(</span><span class="si">{</span><span class="n">history_model</span><span class="o">.</span><span class="n">coef_</span><span class="si">}</span><span class="s2"> * current(t) + </span><span class="si">{</span><span class="n">history_model</span><span class="o">.</span><span class="n">intercept_</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>firing_rate<span class="o">(</span>t<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>exp<span class="o">([</span>-0.18239757<span class="w">  </span><span class="m">0</span>.19256012<span class="w"> </span>-0.08882547<span class="w">  </span><span class="m">0</span>.02926374<span class="w"> </span>-0.00101938<span class="w"> </span>-0.00541549
-<span class="w">  </span><span class="m">0</span>.00264424<span class="w"> </span>-0.00147817<span class="w">  </span><span class="m">0</span>.00111308<span class="w"> </span>-0.00063025<span class="o">]</span><span class="w"> </span>*<span class="w"> </span>current<span class="o">(</span>t<span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="o">[</span>-7.5384316<span class="o">])</span>
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>firing_rate<span class="o">(</span>t<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>exp<span class="o">([</span>-1.1042651e-02<span class="w">  </span><span class="m">2</span>.6582897e-02<span class="w"> </span>-1.3497820e-02<span class="w">  </span><span class="m">1</span>.3886572e-02
+<span class="w"> </span>-9.4295051e-03<span class="w">  </span><span class="m">2</span>.6766905e-03<span class="w">  </span><span class="m">6</span>.2929112e-06<span class="w"> </span>-3.5014696e-04<span class="o">]</span><span class="w"> </span>*<span class="w"> </span>current<span class="o">(</span>t<span class="o">)</span><span class="w"> </span>+<span class="w"> </span><span class="o">[</span>-9.883343<span class="o">])</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 899-900 -->
 
@@ -1975,7 +1975,7 @@ the design matrix we pass to the model:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">history_model</span><span class="o">.</span><span class="n">intercept_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><span class="o">(</span><span class="m">10</span>,<span class="o">)</span>
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><span class="o">(</span><span class="m">8</span>,<span class="o">)</span>
 <span class="o">(</span><span class="m">1</span>,<span class="o">)</span>
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 906-916 -->
@@ -2034,9 +2034,9 @@ onset transience, especially in the third interval.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>Observed<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate:<span class="w"> </span><span class="m">1</span>.4275517487508922<span class="w"> </span>Hz
 Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span><span class="m">1</span>.430655598640442<span class="w"> </span>Hz
-Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">1</span>.9733861848380185<span class="w"> </span>Hz
+Predicted<span class="w"> </span>mean<span class="w"> </span>firing<span class="w"> </span>rate<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">1</span>.4383626960774483<span class="w"> </span>Hz
 
-&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x354c914d0&gt;
+&lt;matplotlib.legend.Legend<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x35646ae50&gt;
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 952-965 -->
 
@@ -2061,7 +2061,7 @@ weights, and we can calculate this number using its <code>score</code> method:</
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>log-likelihood<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span>-0.007939920760691166
-log-likelihood<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span>-0.008206888101994991
+log-likelihood<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span>-0.007489854469895363
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 973-1004 -->
 
@@ -2102,7 +2102,7 @@ provide the ability to compute the pseudo-$R^2$ for this purpose:</p>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>pseudo-r2<span class="w"> </span><span class="o">(</span>instantaneous<span class="w"> </span>current<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.3037663698196411
-pseudo-r2<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.28069862723350525
+pseudo-r2<span class="w"> </span><span class="o">(</span>current<span class="w"> </span><span class="nb">history</span><span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.3568980097770691
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 1012-1019 -->
 
@@ -2193,7 +2193,7 @@ characterization. eLife, 2021;10:e65482. https://doi.org/10.7554/eLife.65482</p>
 Ting, J., et al. (2021) Human neocortical expansion involves glutamatergic
 neuron diversification. Nature, 598(7879):151-158. doi:
 10.1038/s41586-021-03813-8</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  8.606 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  18.814 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell_full.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: tutorial_pynapple_nemos_single_cell_full.py</a></p>

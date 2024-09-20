@@ -805,7 +805,7 @@ plotting.plot_basis()
 # </div>
 
 basis = nmo.basis.RaisedCosineBasisLog(
-    n_basis_funcs=10, mode="conv", window_size=current_history_duration,
+    n_basis_funcs=8, mode="conv", window_size=current_history_duration
 )
 
 # %%
