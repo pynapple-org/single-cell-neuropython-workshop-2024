@@ -251,18 +251,20 @@ if path not in os.listdir("."):
 
 
 
-# plotting.tuning_curve_plot(tuning_curve)
+# plotting.tuning_curve_plot(tuning_curve);
 
 
 
 # %%
 # ## NeMoS
+# To warm up let's fit a GLM that uses the injected current to predict the firing rate.
+#
 # ### Preparing data
-# 
+#
 #  Get data from pynapple to NeMoS-ready format:
 # 
 #   - predictors and spikes must have same number of time points
-# 
+#   - use the "bin_average" method of Tsd to down-sample the current
 
 # enter code here
 
@@ -270,6 +272,7 @@ if path not in os.listdir("."):
 # %%
 # 
 #   - predictors must be 2d, spikes 1d
+#   - use np.expand_dim for adding one dimension
 # 
 
 # enter code here
@@ -295,6 +298,8 @@ if path not in os.listdir("."):
 # %%
 # 
 #   - generate and examine model predictions.
+#   - smooth the firing rate with "smooth" method of pynapple with parameters
+#     "std=0.05" and "size_factor=20"
 # 
 
 # enter code here
@@ -305,6 +310,7 @@ if path not in os.listdir("."):
 # %%
 # 
 #   - what do we see?
+#   - print the mean firing rate based on the raw counts and on the predicted rate
 # 
 
 # enter code here
@@ -323,38 +329,48 @@ if path not in os.listdir("."):
 
 # %%
 # ### Extending the model
+#
+# As a step forward, let's assume that the neuron is responding not only to the instantaneous injected current
+# but also to the recent current history.
+# As we have seen in the slides, we can capture temporally extended effects using basis function:
+#
 # 
-#   - choose a length of time over which the neuron integrates the input current
+#   - choose a length of time over which the neuron integrates the input current (0.2 seconds)
+#   - store the window duration in seconds in a variable named "current_history_duration_sec"
+#   - convert the window duration from seconds to bins (divide by bin_size, and convert to integer)
 # 
 
 # enter code here
 
 
 # %%
-# 
-#   - define a basis object
-# 
+#   - construct features as the convolution of a basis with the current.
+#   - define a basis object of type "nmo.basis.RaisedCosineBasisLog"
+#   - use 8 basis function and set "mode = conv" for computing convolutions.
 
 # enter code here
 
 
 # %%
 # 
-#   - create the design matrix
+#   - create the design matrix by calling the "basis.compute_feature" method.
+#   - name the output "current_history"
 #   - examine the features it contains
 # 
 
-# enter code here
+
 # in this plot, we're normalizing the amplitudes to make the comparison easier --
 # the amplitude of these features will be fit by the model, so their un-scaled
 # amplitudes is not informative
+
 # plotting.plot_current_history_features(binned_current, current_history, basis,
 #                                                       current_history_duration_sec)
 
 
+
 # %%
 # 
-#   - create and fit the GLM
+#   - use the current history as feature matrix and fit the GLM
 #   - examine the parameters
 # 
 
@@ -362,26 +378,36 @@ if path not in os.listdir("."):
 
 
 # %%
-# 
-#   - compare the predicted firing rate to the data and the old model
+#   - predict & smooth the firing rate (divide the "predict" output by the bin_size for converting to Hz)
+#   - compare the predicted firing rate to the data and the old model (use the "dropna" method of Tsd before smoothing)
 #   - what do we see?
 # 
 
 # enter code here
 
+# plotting.current_injection_plot(current[:, 0], spikes, firing_rate,
+#                                 smooth_history_pred_fr, smooth_predicted_fr)
+
 
 # %%
-# 
+#   - compute the tuning function using "nap.compute_1d_tuning_curves_continuous"
 #   - examine the predicted average firing rate and tuning curve
 #   - what do we see?
 # 
 
+# tuning_curve_history_model = nap.compute_1d_tuning_curves_continuous(smooth_history_pred_fr, current, 15)
+# fig = plotting.tuning_curve_plot(tuning_curve)
+# fig.axes[0].plot(tuning_curve_history_model, color="tomato", label="glm (current history)")
+# fig.axes[0].plot(tuning_curve_model, color="tomato", linestyle='--', label="glm (instantaneous current)")
+# fig.axes[0].legend()
+
+
 # enter code here
 
 
 # %%
 # 
-#   - use log-likelihood to compare models
+#   - use log-likelihood to compare models (call the "score" method)
 # 
 
 # enter code here
@@ -391,17 +417,11 @@ if path not in os.listdir("."):
 # ### Finishing up
 # 
 #   - what if you want to compare models across datasets?
+#   - score using the pseudo-R2 ('score_type="pseudo-r2-McFadden"')
 # 
 
 # enter code here
 
-
-# %%
-# 
-#   - what about spiking?
-# 
-
-# enter code here
 
 
 # %%

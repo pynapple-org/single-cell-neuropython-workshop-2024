@@ -426,7 +426,7 @@ tuning_curve
 # </div>
 
 
-plotting.tuning_curve_plot(tuning_curve)
+plotting.tuning_curve_plot(tuning_curve);
 
 # %%
 #
@@ -904,7 +904,7 @@ print(history_model.intercept_.shape)
 
 # %%
 #
-# `coef_` has 10 values now, while `intercept_` still has one &mdash; why is that?
+# `coef_` has 8 values now, while `intercept_` still has one &mdash; why is that?
 # Because we now have 10 features, but still only 1 neuron whose firing rate we're
 # predicting.
 #
