@@ -313,6 +313,7 @@ if path not in os.listdir("."):
 # 
 #   - what do we see?
 #   - print the mean firing rate based on the raw counts and on the predicted rate.
+#   - use `np.mean(count)/bin_size` and `np.nanmean(predicted_fr)`.
 # 
 
 # enter code here
