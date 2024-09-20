@@ -5,7 +5,7 @@ hide:
 ---
 # Single Cell Neuropython Workshop 2024
 
-Welcome to the Pynapple and NeMoS material for the Single Cell Neuropython 2024.
+Welcome to the Pynapple and NeMoS material for the [Single Cell Neuropython 2024](https://navis-org.github.io/neuropython2024/).
 
 Here you will find:
 
