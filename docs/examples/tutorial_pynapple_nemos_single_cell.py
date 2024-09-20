@@ -75,7 +75,9 @@ if path not in os.listdir("."):
 # - Open the NWB file with [pynapple](https://pynapple-org.github.io/pynapple/)
 # 
 
-# %%
+# Open path and print data
+
+
 
 
 
@@ -94,6 +96,9 @@ if path not in os.listdir("."):
 # 
 
 # %%
+# First let's examine the epochs : 
+
+# Assign the variable epochs from data and print the keys
 
 
 
@@ -103,9 +108,7 @@ if path not in os.listdir("."):
 # - `Noise 1`: epochs of random noise
 # 
 
-# %%
-
-
+# assign to noise_interval the epochs from the keys "Noise 1"
 
 
 # %%
@@ -113,21 +116,19 @@ if path not in os.listdir("."):
 # - Let's focus on the first epoch.
 # 
 
-# %%
+# get the first epoch
 
 
 
 
 # %%
-# 
+# Now let's examine the input current
 # - `current` : Tsd (TimeSeriesData) : time index + data
 # 
-
-# %%
-
 # convert current from Ampere to pico-amperes, to match the Allen Institute figures and
 # move the values to a more reasonable range.
 
+# assign stimulus as current
 
 
 
@@ -136,7 +137,7 @@ if path not in os.listdir("."):
 # - `restrict` : restricts a time series object to a set of time intervals delimited by an IntervalSet object
 # 
 
-# %%
+# restrict current to noise_interval
 
 
 
@@ -147,7 +148,7 @@ if path not in os.listdir("."):
 #   potentially different time indices.
 # 
 
-# %%
+# assign units from data to a variable called spikes
 
 
 
@@ -159,7 +160,7 @@ if path not in os.listdir("."):
 # spikes:
 # 
 
-# %%
+# get the first neuron of TsGroup
 
 
 
@@ -169,7 +170,7 @@ if path not in os.listdir("."):
 # Let's restrict to the same epoch `noise_interval`:
 # 
 
-# %%
+# restrict spikes to noise_interval
 
 
 
@@ -200,7 +201,7 @@ if path not in os.listdir("."):
 # - `count` : count the number of events within `bin_size`
 # 
 
-# %%
+# count spikes in bin size of 0.001 seconds
 
 
 
@@ -217,10 +218,12 @@ if path not in os.listdir("."):
 # the full width of the window, in standard deviations. So std=.05 and size_factor=20
 # gives a total filter size of 0.05 sec * 20 = 1 sec.
 
+# smooth with a std of 0.05
+
 # %%
 # convert from spikes per bin to spikes per second (Hz)
 
-
+# divide by bin size
 
 
 # %%
@@ -238,7 +241,8 @@ if path not in os.listdir("."):
 # What is the relationship between the current and the spiking activity?
 # [`compute_1d_tuning_curves`](https://pynapple-org.github.io/pynapple/reference/process/tuning_curves/#pynapple.process.tuning_curves.compute_1d_tuning_curves) : compute the firing rate as a function of a 1-dimensional feature.
 # 
-#
+
+# compute tuning curves of spikes and current for 15 bins
 
 
 
@@ -248,8 +252,6 @@ if path not in os.listdir("."):
 # 
 # Let's plot the tuning curve of the neuron.
 # 
-
-
 
 # plotting.tuning_curve_plot(tuning_curve);
 
