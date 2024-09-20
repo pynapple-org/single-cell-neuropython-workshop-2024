@@ -13,7 +13,7 @@
 # - Learn how to structure data for NeMoS
 # - Learn how to fit a basic Generalized Linear Model using NeMoS
 # - Learn how to retrieve the parameters and predictions from a fit GLM for
-#   intrepetation.
+#   interpretation.
 
 # %%
 # !!! warning
@@ -265,16 +265,16 @@ if path not in os.listdir("."):
 #
 #  Get data from pynapple to NeMoS-ready format:
 # 
-#   - predictors and spikes must have same number of time points
-#   - use the "bin_average" method of Tsd to down-sample the current
+#   - predictors and spikes must have same number of time points.
+#   - use the "bin_average" method of Tsd to down-sample the current.
 
 # enter code here
 
 
 # %%
 # 
-#   - predictors must be 2d, spikes 1d
-#   - use np.expand_dim for adding one dimension
+#   - predictors must be 2d, spikes 1d.
+#   - use np.expand_dim for adding one dimension, name the output "predictors".
 # 
 
 # enter code here
@@ -283,7 +283,7 @@ if path not in os.listdir("."):
 # %%
 # ### Fitting the model
 # 
-#   - define a GLM object
+#   - define a GLM object.
 # 
 
 # enter code here
@@ -291,7 +291,7 @@ if path not in os.listdir("."):
 
 # %%
 # 
-#   - call fit and retrieve parameters
+#   - call fit and retrieve parameters.
 # 
 
 # enter code here
@@ -301,8 +301,8 @@ if path not in os.listdir("."):
 # 
 #   - generate and examine model predictions.
 #   - smooth the firing rate with "smooth" method of pynapple with parameters
-#     "std=0.05" and "size_factor=20"
-# 
+#     "std=0.05" and "size_factor=20".
+#
 
 # enter code here
 # plotting.current_injection_plot(current, spikes, firing_rate,
@@ -312,7 +312,7 @@ if path not in os.listdir("."):
 # %%
 # 
 #   - what do we see?
-#   - print the mean firing rate based on the raw counts and on the predicted rate
+#   - print the mean firing rate based on the raw counts and on the predicted rate.
 # 
 
 # enter code here
@@ -337,9 +337,9 @@ if path not in os.listdir("."):
 # As we have seen in the slides, we can capture temporally extended effects using basis function:
 #
 # 
-#   - choose a length of time over which the neuron integrates the input current (0.2 seconds)
-#   - store the window duration in seconds in a variable named "current_history_duration_sec"
-#   - convert the window duration from seconds to bins (divide by bin_size, and convert to integer)
+#   - choose a length of time over which the neuron integrates the input current (0.2 seconds).
+#   - store the window duration in seconds in a variable named "current_history_duration_sec".
+#   - convert the window duration from seconds to bins (divide by bin_size, and convert to integer).
 # 
 
 # enter code here
@@ -347,7 +347,7 @@ if path not in os.listdir("."):
 
 # %%
 #   - construct features as the convolution of a basis with the current.
-#   - define a basis object of type "nmo.basis.RaisedCosineBasisLog"
+#   - define a basis object of type "nmo.basis.RaisedCosineBasisLog".
 #   - use 8 basis function and set "mode = conv" for computing convolutions.
 
 # enter code here
@@ -356,8 +356,8 @@ if path not in os.listdir("."):
 # %%
 # 
 #   - create the design matrix by calling the "basis.compute_feature" method.
-#   - name the output "current_history"
-#   - examine the features it contains
+#   - name the output "current_history".
+#   - examine the features it contains.
 # 
 
 
@@ -372,8 +372,8 @@ if path not in os.listdir("."):
 
 # %%
 # 
-#   - use the current history as feature matrix and fit the GLM
-#   - examine the parameters
+#   - use the current history as feature matrix and fit the GLM.
+#   - examine the parameters.
 # 
 
 # enter code here
@@ -387,13 +387,13 @@ if path not in os.listdir("."):
 
 # enter code here
 
-# plotting.current_injection_plot(current[:, 0], spikes, firing_rate,
+# plotting.current_injection_plot(current, spikes, firing_rate,
 #                                 smooth_history_pred_fr, smooth_predicted_fr)
 
 
 # %%
-#   - compute the tuning function using "nap.compute_1d_tuning_curves_continuous"
-#   - examine the predicted average firing rate and tuning curve
+#   - compute the tuning function using "nap.compute_1d_tuning_curves_continuous".
+#   - examine the predicted average firing rate and tuning curve.
 #   - what do we see?
 # 
 
@@ -409,7 +409,7 @@ if path not in os.listdir("."):
 
 # %%
 # 
-#   - use log-likelihood to compare models (call the "score" method)
+#   - use log-likelihood to compare models (call the "score" method).
 # 
 
 # enter code here
@@ -419,7 +419,7 @@ if path not in os.listdir("."):
 # ### Finishing up
 # 
 #   - what if you want to compare models across datasets?
-#   - score using the pseudo-R2 ('score_type="pseudo-r2-McFadden"')
+#   - score using the pseudo-R2 ('score_type="pseudo-r2-McFadden"').
 # 
 
 # enter code here
