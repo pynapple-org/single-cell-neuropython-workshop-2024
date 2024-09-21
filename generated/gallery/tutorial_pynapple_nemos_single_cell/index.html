@@ -569,7 +569,7 @@ to download the full example code</p>
 <li>Learn how to structure data for NeMoS</li>
 <li>Learn how to fit a basic Generalized Linear Model using NeMoS</li>
 <li>Learn how to retrieve the parameters and predictions from a fit GLM for
-  intrepetation.</li>
+  interpretation.</li>
 </ul>
 <!-- GENERATED FROM PYTHON SOURCE LINES 19-24 -->
 
@@ -790,173 +790,192 @@ https://github.com/flatironinstitute/ccn-workshop-fens-2024/blob/main/src/worksh
 <p>Let's plot the tuning curve of the neuron.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 255-260 -->
 
-<div class="highlight"><pre><span></span><code><span class="c1"># plotting.tuning_curve_plot(tuning_curve)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># plotting.tuning_curve_plot(tuning_curve);</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 261-268 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 261-270 -->
 
 <h2 id="nemos">NeMoS</h2>
+<p>To warm up let's fit a GLM that uses the injected current to predict the firing rate.</p>
 <h3 id="preparing-data">Preparing data</h3>
 <p>Get data from pynapple to NeMoS-ready format:</p>
 <ul>
-<li>predictors and spikes must have same number of time points</li>
+<li>predictors and spikes must have same number of time points.</li>
+<li>use the <code>bin_average</code> method of Tsd to down-sample the current.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 268-272 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 270-274 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 273-275 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 275-278 -->
 
 <ul>
-<li>predictors must be 2d, spikes 1d</li>
+<li>predictors must be 2d, spikes 1d.</li>
+<li>use <code>np.expand_dim</code> for adding one dimension, name the output <code>predictors</code>.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 276-280 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 279-283 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 281-285 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 284-288 -->
 
 <h3 id="fitting-the-model">Fitting the model</h3>
 <ul>
-<li>define a GLM object</li>
+<li>define a GLM object.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 285-289 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 288-292 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 290-292 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 293-295 -->
 
 <ul>
-<li>call fit and retrieve parameters</li>
+<li>call fit and retrieve parameters.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 293-297 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 296-300 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 298-300 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 301-305 -->
 
 <ul>
 <li>generate and examine model predictions.</li>
+<li>smooth the firing rate with <code>smooth</code> method of pynapple Tsd with parameters
+  <code>std=0.05</code> and <code>size_factor=20</code>.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 301-307 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 306-312 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 <span class="c1"># plotting.current_injection_plot(current, spikes, firing_rate,</span>
 <span class="c1">#                                                smooth_predicted_fr)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 308-310 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 313-317 -->
 
 <ul>
 <li>what do we see?</li>
+<li>print the mean firing rate based on the raw counts and on the predicted rate.</li>
+<li>use <code>np.mean(count)/bin_size</code> and <code>np.nanmean(predicted_fr)</code>.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 311-315 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 318-322 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 316-318 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 323-325 -->
 
 <ul>
 <li>examine tuning curve &mdash; what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 319-326 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 326-333 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 <span class="c1"># fig = plotting.tuning_curve_plot(tuning_curve)</span>
 <span class="c1"># fig.axes[0].plot(tuning_curve_model, color=&quot;tomato&quot;, label=&quot;glm&quot;)</span>
 <span class="c1"># fig.axes[0].legend()</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 327-331 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 334-345 -->
 
 <h3 id="extending-the-model">Extending the model</h3>
+<p>As a step forward, let's assume that the neuron is responding not only to the instantaneous injected current
+but also to the recent current history.
+As we have seen in the slides, we can capture temporally extended effects using basis function:</p>
 <ul>
-<li>choose a length of time over which the neuron integrates the input current</li>
+<li>choose a length of time over which the neuron integrates the input current (0.2 seconds).</li>
+<li>store the window duration in seconds in a variable named <code>current_history_duration_sec</code>.</li>
+<li>convert the window duration from seconds to bins (divide by <code>bin_size</code>, and convert to integer).</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 331-335 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 345-349 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 336-338 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 350-353 -->
 
 <ul>
-<li>define a basis object</li>
+<li>construct features as the convolution of a basis with the current.</li>
+<li>define a basis object of type <code>nmo.basis.RaisedCosineBasisLog</code>.</li>
+<li>use 8 basis function and set <code>mode = conv</code> for computing convolutions.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 339-343 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 353-357 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 344-347 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 358-362 -->
 
 <ul>
-<li>create the design matrix</li>
-<li>examine the features it contains</li>
+<li>create the design matrix by calling the <code>basis.compute_feature</code> method.</li>
+<li>name the output <code>current_history</code>.</li>
+<li>examine the features it contains.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 348-357 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 363-374 -->
 
-<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
-<span class="c1"># in this plot, we&#39;re normalizing the amplitudes to make the comparison easier --</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># in this plot, we&#39;re normalizing the amplitudes to make the comparison easier --</span>
 <span class="c1"># the amplitude of these features will be fit by the model, so their un-scaled</span>
 <span class="c1"># amplitudes is not informative</span>
+
 <span class="c1"># plotting.plot_current_history_features(binned_current, current_history, basis,</span>
 <span class="c1">#                                                       current_history_duration_sec)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 358-361 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 375-378 -->
 
 <ul>
-<li>create and fit the GLM</li>
-<li>examine the parameters</li>
+<li>use the current history as feature matrix and fit the GLM.</li>
+<li>examine the parameters.</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 362-366 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 379-383 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 367-370 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 384-388 -->
 
 <ul>
-<li>compare the predicted firing rate to the data and the old model</li>
+<li>predict &amp; smooth the firing rate (divide the <code>predict</code> output by the <code>bin_size</code> for converting to Hz)</li>
+<li>compare the predicted firing rate to the data and the old model (use the <code>dropna</code> method of Tsd before smoothing)</li>
 <li>what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 371-375 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 388-395 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+
+<span class="c1"># plotting.current_injection_plot(current, spikes, firing_rate,</span>
+<span class="c1">#                                 smooth_history_pred_fr, smooth_predicted_fr)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 376-379 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 396-400 -->
 
 <ul>
-<li>examine the predicted average firing rate and tuning curve</li>
+<li>compute the tuning function using <code>nap.compute_1d_tuning_curves_continuous</code>.</li>
+<li>examine the predicted average firing rate and tuning curve.</li>
 <li>what do we see?</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 380-384 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 400-411 -->
 
-<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># tuning_curve_history_model = nap.compute_1d_tuning_curves_continuous(smooth_history_pred_fr, current, 15)</span>
+<span class="c1"># fig = plotting.tuning_curve_plot(tuning_curve)</span>
+<span class="c1"># fig.axes[0].plot(tuning_curve_history_model, color=&quot;tomato&quot;, label=&quot;glm (current history)&quot;)</span>
+<span class="c1"># fig.axes[0].plot(tuning_curve_model, color=&quot;tomato&quot;, linestyle=&#39;--&#39;, label=&quot;glm (instantaneous current)&quot;)</span>
+<span class="c1"># fig.axes[0].legend()</span>
+
+
+<span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 385-387 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 412-414 -->
 
 <ul>
-<li>use log-likelihood to compare models</li>
+<li>use log-likelihood to compare models (call the <code>score</code> method).</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 388-392 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 415-419 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 393-397 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 420-425 -->
 
 <h3 id="finishing-up">Finishing up</h3>
 <ul>
 <li>what if you want to compare models across datasets?</li>
+<li>score using the pseudo-R2 (<code>score_type="pseudo-r2-McFadden"</code>).</li>
 </ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 397-401 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 425-430 -->
 
 <div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 402-404 -->
-
-<ul>
-<li>what about spiking?</li>
-</ul>
-<!-- GENERATED FROM PYTHON SOURCE LINES 405-409 -->
-
-<div class="highlight"><pre><span></span><code><span class="c1"># enter code here</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 410-439 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 431-460 -->
 
 <h2 id="further-exercises">Further Exercises</h2>
 <ul>
@@ -982,7 +1001,7 @@ characterization. eLife, 2021;10:e65482. https://doi.org/10.7554/eLife.65482</p>
 Ting, J., et al. (2021) Human neocortical expansion involves glutamatergic
 neuron diversification. Nature, 598(7879):151-158. doi:
 10.1038/s41586-021-03813-8</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.004 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.334 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../tutorial_pynapple_nemos_single_cell.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></span> Download Python source code: tutorial_pynapple_nemos_single_cell.py</a></p>
